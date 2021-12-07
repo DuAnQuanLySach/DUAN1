@@ -6,8 +6,13 @@
 package GUI;
 
 import DAO.HoaDonDAO;
+import DAO.NhanVienDAO;
 import DAO.ThongKeDao;
+import DAO.VaiTroDAO;
 import Entity.HoaDon;
+import Entity.NhanVien;
+import Entity.VaiTro;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.mail.Message;
@@ -18,6 +23,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import utils.MsgBox;
+
 /**
  *
  * @author Admin
@@ -32,9 +38,11 @@ public class ThongKe extends javax.swing.JPanel {
         ComboBoxNam();
         ComboBoxThang();
         jDateChooser1.setDate(utils.XDate.now());
-
+        listt = daovt.selecALL();
+        list = daonv.selecALL();
     }
-     int index2 = -1;
+    int index2 = -1;
+    private int indexx;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -212,8 +220,13 @@ public class ThongKe extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     ThongKeDao dao = new ThongKeDao();
     HoaDonDAO hddao = new HoaDonDAO();
+    private NhanVienDAO daonv = new NhanVienDAO();
+    private VaiTroDAO daovt = new VaiTroDAO();
+    private List<NhanVien> list = new ArrayList<>();
+    private List<VaiTro> listt = new ArrayList<>();
+
     private void cboNamThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNamThangActionPerformed
-         try {
+        try {
             int index = cboNamThang.getSelectedIndex();
 
             if (index2 == 0) {
@@ -230,7 +243,7 @@ public class ThongKe extends javax.swing.JPanel {
                     DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
                     model.setColumnCount(0);
                     model.addColumn("Tháng");
-                    model.addColumn("Số lượng sách đã bán ") ;
+                    model.addColumn("Số lượng sách đã bán ");
                     model.addColumn("Tổng tiền");
                     cboThang.enable();
                 }
@@ -279,7 +292,7 @@ public class ThongKe extends javax.swing.JPanel {
             }
 
         } catch (Exception e) {
-            MsgBox.alert(this,"Lỗi table");
+            MsgBox.alert(this, "Lỗi table");
         }
     }//GEN-LAST:event_cboNamThangActionPerformed
 
@@ -293,7 +306,7 @@ public class ThongKe extends javax.swing.JPanel {
             for (Object[] row : list) {
                 model.addRow(row);
             }
-        } else if(index2 == 0 && iteam.equals("Tháng")) {
+        } else if (index2 == 0 && iteam.equals("Tháng")) {
             DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
             model.setRowCount(0);
             int nam = (Integer) cboNam.getSelectedItem();
@@ -310,7 +323,7 @@ public class ThongKe extends javax.swing.JPanel {
             for (Object[] row : list) {
                 model.addRow(row);
             }
-        }else if(index2 == 1 && iteam.equals("Tháng") ){
+        } else if (index2 == 1 && iteam.equals("Tháng")) {
             DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
             model.setRowCount(0);
             int nam = (Integer) cboNam.getSelectedItem();
@@ -327,7 +340,7 @@ public class ThongKe extends javax.swing.JPanel {
             for (Object[] row : list) {
                 model.addRow(row);
             }
-        }else if(index2 == 2 && iteam.equals("Tháng") ){
+        } else if (index2 == 2 && iteam.equals("Tháng")) {
             DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
             model.setRowCount(0);
             int nam = (Integer) cboNam.getSelectedItem();
@@ -339,16 +352,14 @@ public class ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_cboNamActionPerformed
 
     private void cboThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboThangActionPerformed
-        index2 =cboLoaiTK.getSelectedIndex();
+        index2 = cboLoaiTK.getSelectedIndex();
         if (index2 == 0) {
-            
-           fillTableThang();
-        }
-        else if(index2 == 1){
-          fillTableThangSLSP();
-        }
-        else if(index2 == 2){
-          fillTableThangSBC();
+
+            fillTableThang();
+        } else if (index2 == 1) {
+            fillTableThangSLSP();
+        } else if (index2 == 2) {
+            fillTableThangSBC();
         }
     }//GEN-LAST:event_cboThangActionPerformed
 
@@ -361,12 +372,13 @@ public class ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_jDateChooser1AncestorAdded
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         try {
+        try {
             String message = "";
             String host = "smtp.gmail.com";
             String user = "duanmot439@gmail.com";
             String pass = "duan12345";
-            String to = "huynhph17290@fpt.edu.vn";
+            String to = "";
+
             String subject = "Thống kê doanh thu";
 
             boolean sessionDebug = false;
@@ -381,25 +393,34 @@ public class ThongKe extends javax.swing.JPanel {
             mailSession.setDebug(sessionDebug);
             Message msg = new MimeMessage(mailSession);
             msg.setFrom(new InternetAddress(user));
-            
+
             msg.setSubject(subject);
             List<Object[]> list = dao.getHoaDonNGAY(jDateChooser1.getDate());
             for (Object[] row : list) {
                 message = "Ngày: " + row[0] + " Tên: " + row[1] + " Số Lượng: " + row[2] + " Tổng Tiền: " + row[3] + " Ghi Chú: " + row[4] + "\n" + message;
             }
-            msg.setText(message);
-            InternetAddress[] address = {new InternetAddress(to)};
-            msg.setRecipients(Message.RecipientType.TO, address);
-            Transport transport = mailSession.getTransport("smtp");
-            transport.connect(host, user, pass);
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
+             msg.setText(message);
+            for (VaiTro vt : listt) {
+                if (vt.isVaiTro() == true) {
+                    for (NhanVien nv : this.list) {
+                        if (nv.getManv() == Integer.parseInt(vt.getManv())) {
+                            to = nv.getEmail();
+                            InternetAddress[] address = {new InternetAddress(to)};
+                            msg.setRecipients(Message.RecipientType.TO, address);
+                            Transport transport = mailSession.getTransport("smtp");
+                            transport.connect(host, user, pass);
+                            transport.sendMessage(msg, msg.getAllRecipients());
+                            transport.close();
+                        }
+                    }
+                }
+            }
             MsgBox.alert(this, "Đã gửi email");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-     void ComboBoxNam() {
+    void ComboBoxNam() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboNam.getModel();
         model.removeAllElements();
         List<Integer> list = hddao.selectYears();
@@ -456,6 +477,7 @@ public class ThongKe extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
+
     void fillTableNamSBC() {
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
         model.setRowCount(0);
@@ -464,6 +486,7 @@ public class ThongKe extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
+
     void fillTableThangSBC() {
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
         model.setRowCount(0);
