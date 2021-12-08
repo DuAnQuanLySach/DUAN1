@@ -22,12 +22,12 @@ public class LoaiBiaDAO extends DAO<LoaiBia, Integer>{
     String SELECt_BY_ID_SQL = "SELECT*from LoaiBia where MALB= ?";
     @Override
     public void insert(LoaiBia entity) {
-     JDBCHelper.jdbcHelper.update(INSERT_SQL, entity.getMaLB(), entity.getMaLB(), entity.getTrangThai());
+     JDBCHelper.jdbcHelper.update(INSERT_SQL, entity.getMaLB(), entity.getTenLB(), entity.getTrangThai());
     }
 
     @Override
     public void update(LoaiBia entity) {
-     JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getMaLB(), entity.getMaLB(), entity.getTrangThai());
+     JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getTenLB(), entity.getTrangThai(), entity.getMaLB());
     }
 
     @Override

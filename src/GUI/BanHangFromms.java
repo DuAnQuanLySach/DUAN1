@@ -471,7 +471,7 @@ public class BanHangFromms extends javax.swing.JPanel {
 
         s.setPreferredSize(new java.awt.Dimension(1345, 300));
 
-        Pbody3.setBackground(new java.awt.Color(0, 153, 255));
+        Pbody3.setBackground(new java.awt.Color(51, 204, 255));
         Pbody3.setLayout(new java.awt.GridLayout(3, 0));
         jScrollPane4.setViewportView(Pbody3);
 
@@ -488,9 +488,10 @@ public class BanHangFromms extends javax.swing.JPanel {
 
         add(s, java.awt.BorderLayout.PAGE_END);
 
-        jPanel4.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel4.setBackground(new java.awt.Color(51, 204, 255));
 
         btnTT.setBackground(new java.awt.Color(0, 204, 0));
+        btnTT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Money.png"))); // NOI18N
         btnTT.setText("Thanh Toán");
         btnTT.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204), new java.awt.Color(204, 204, 204)));
         btnTT.addActionListener(new java.awt.event.ActionListener() {
@@ -595,6 +596,7 @@ public class BanHangFromms extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/OK.png"))); // NOI18N
         jButton1.setText("Giao Hàng");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -675,8 +677,8 @@ public class BanHangFromms extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTT, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76))
+                        .addComponent(btnTT, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -752,8 +754,11 @@ public class BanHangFromms extends javax.swing.JPanel {
 
         add(jPanel15, java.awt.BorderLayout.LINE_END);
 
-        jPanel5.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel5.setBackground(new java.awt.Color(51, 204, 255));
+
+        btnTaoHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/Add to basket.png"))); // NOI18N
         btnTaoHD.setText("Tạo Hóa đơn");
         btnTaoHD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -772,18 +777,18 @@ public class BanHangFromms extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnTaoHD)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addComponent(btnTaoHD, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTaoHD)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnTaoHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        PBody2.setBackground(new java.awt.Color(51, 153, 255));
+        PBody2.setBackground(new java.awt.Color(51, 204, 255));
         PBody2.setLayout(new java.awt.GridLayout(10, 2));
         jScrollPane2.setViewportView(PBody2);
 
@@ -799,7 +804,8 @@ public class BanHangFromms extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -817,7 +823,7 @@ public class BanHangFromms extends javax.swing.JPanel {
 
         add(jPanel24, java.awt.BorderLayout.LINE_START);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(51, 204, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(900, 570));
 
         Tblcth.setModel(new javax.swing.table.DefaultTableModel(
@@ -854,7 +860,7 @@ public class BanHangFromms extends javax.swing.JPanel {
             .addComponent(jTextField1)
         );
 
-        jPanel6.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel6.setBackground(new java.awt.Color(51, 204, 255));
 
         cbbTheLoai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

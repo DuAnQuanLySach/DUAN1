@@ -59,7 +59,7 @@ public class MenuItem extends javax.swing.JPanel {
         lbIcon = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(224, 166, 213));
+        setBackground(new java.awt.Color(102, 102, 255));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -67,6 +67,7 @@ public class MenuItem extends javax.swing.JPanel {
         });
 
         lbName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbName.setForeground(new java.awt.Color(255, 255, 255));
         lbName.setText("Menu Name Here ...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

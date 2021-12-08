@@ -27,7 +27,7 @@ public class HinhThucDAO extends DAO<HinhThuc, String>{
 
     @Override
     public void update(HinhThuc entity) {
-     JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getMaHT(), entity.getKieuSach(), entity.isTrangThai());
+     JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getKieuSach(), entity.isTrangThai(), entity.getMaHT());
     }
 
     @Override

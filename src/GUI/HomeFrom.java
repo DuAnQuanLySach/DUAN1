@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import menu.MenuItem;
 import GUI.*;
+import utils.MsgBox;
 
 /**
  *
@@ -28,19 +29,22 @@ public class HomeFrom extends javax.swing.JFrame {
     public HomeFrom() {
         initComponents();
        this.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+       panelBody.add(new PageForm());
         execute();
     }
       public static void loadfrom() {
         panelBody.removeAll();
         panelBody.add(new BanHangFromms());
+        
     }
     private void execute() {
-        ImageIcon iconStaff = new ImageIcon("D:\\test menu\\src\\menu\\user.png");
-        ImageIcon iconSetting = new ImageIcon("D:\\test menu\\src\\menu\\setting.png");
-        ImageIcon iconDatabase = new ImageIcon("D:\\test menu\\src\\menu\\database.png");
-        ImageIcon iconMessage = new ImageIcon("D:\\test menu\\src\\menu\\message.png");
-        ImageIcon iconSubMenu = new ImageIcon("\"D:\\\\test menu\\\\src\\\\menu\\\\subMenu.png\"");
-        ImageIcon iconNext = new ImageIcon("D:\\test menu\\src\\menu\\next.png");
+        ImageIcon iconHome = new ImageIcon("src\\menu\\home.png");
+        ImageIcon iconBook = new ImageIcon("src\\menu\\book.png");
+        ImageIcon iconPay = new ImageIcon("src\\menu\\pay.png");
+        ImageIcon iconUser = new ImageIcon("src\\menu\\userr.png");
+        ImageIcon iconClient = new ImageIcon("src\\menu\\khach.png");
+        ImageIcon iconSubMenu = new ImageIcon("src\\menu\\subMenu.png");
+        ImageIcon iconNext = new ImageIcon("src\\menu\\next.png");
         //Tạo Menu Quản Lý Sách
         MenuItem menuStaff1 = new MenuItem(iconSubMenu, "Sách và Chi Tiết Sách", new ActionListener() {
             @Override
@@ -171,7 +175,7 @@ public class HomeFrom extends javax.swing.JFrame {
 
                 } else {
                     index = 1;
-
+                    MsgBox.alert(menus, "Hiện chức năng đang bảo trì!");
                 }
             }
         });
@@ -193,12 +197,21 @@ public class HomeFrom extends javax.swing.JFrame {
             }
         });
 
-        MenuItem menuHome = new MenuItem(iconStaff, "Trang Chủ", new ActionListener() {
+        MenuItem menuHome = new MenuItem(iconHome, "Trang Chủ", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (index == 1) {
                     panelBody.removeAll();
-                } 
+                    panelBody.add(new PageForm());
+                    panelBody.repaint();
+                    panelBody.revalidate();
+                }else{
+                    index =1;
+                    panelBody.removeAll();
+                    panelBody.add(new PageForm());
+                    panelBody.repaint();
+                    panelBody.revalidate();
+                }
             }
         });
           MenuItem menuQLHD = new MenuItem(iconNext, "QL Hóa Đơn", new ActionListener() {
@@ -218,9 +231,9 @@ public class HomeFrom extends javax.swing.JFrame {
                 }
             }
         });
-        MenuItem menuQLSach = new MenuItem(iconSetting, "Quản Lý Sách", null, menuStaff1, menuStaff2,menuStaff3, menuStaff4, menuNNDT,menuHTLB);
-        MenuItem menuQLGD = new MenuItem(iconDatabase, "Quản Lý Giao Dịch", null, menuBanHang, menuNhanHang, menuDoanhThu,menuQLHD);
-        MenuItem menuQLNV = new MenuItem(iconDatabase, "Quản Lý Nhân viên", new ActionListener() {
+        MenuItem menuQLSach = new MenuItem(iconBook, "Quản Lý Sách", null, menuStaff1, menuStaff2,menuStaff3, menuStaff4, menuNNDT,menuHTLB);
+        MenuItem menuQLGD = new MenuItem(iconPay, "Quản Lý Giao Dịch", null, menuBanHang, menuNhanHang, menuDoanhThu,menuQLHD);
+        MenuItem menuQLNV = new MenuItem(iconUser, "Quản Lý Nhân viên", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (index == 1) {
@@ -237,7 +250,7 @@ public class HomeFrom extends javax.swing.JFrame {
                 }
             }
         });
-        MenuItem menuQLKH = new MenuItem(iconDatabase, "Quản Lý Khách Hàng", new ActionListener() {
+        MenuItem menuQLKH = new MenuItem(iconClient, "Quản Lý Khách Hàng", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (index == 1) {
@@ -285,13 +298,14 @@ public class HomeFrom extends javax.swing.JFrame {
         panelBody = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cửa hàng bán sách");
 
         panelMenu.setBackground(new java.awt.Color(0, 51, 153));
         panelMenu.setPreferredSize(new java.awt.Dimension(250, 486));
 
         jScrollPane1.setBorder(null);
 
-        menus.setBackground(new java.awt.Color(40, 16, 157));
+        menus.setBackground(new java.awt.Color(51, 102, 255));
         menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(menus);
 
