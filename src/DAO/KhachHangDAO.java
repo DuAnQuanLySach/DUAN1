@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class KhachHangDAO extends DAO<KhachHang, String>{
+public class KhachHangDAO extends DAO<KhachHang, Integer>{
     String INSERT_SQL = "INSERT INTO KhachHang (MAKH, TENKH, GIOITINH, SDT, TRANGTHAI) VALUES (?, ?, ?, ?, ?)";
     String UPDATE_SQL = "UPDATE KhachHang SET TENKH=?, GIOITINH=?, SDT=?, TRANGTHAI=? WHERE MAKH=? ";
     String DELETE_SQL = "DELETE FROM KhachHang WHERE MAKH=? ";
@@ -27,28 +27,24 @@ public class KhachHangDAO extends DAO<KhachHang, String>{
 
     @Override
     public void update(KhachHang entity) {
-     JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getMaKH(), entity.getTenKH(), entity.isGioiTinh(), entity.getSDT(), entity.getTrangThai());
+     JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getTenKH(), entity.isGioiTinh(), entity.getSDT(), entity.getTrangThai(), entity.getMaKH());
     }
 
-    @Override
-    public void delete(String id) {
-      JDBCHelper.jdbcHelper.update(DELETE_SQL, id);
-    }
+
 
     @Override
     public List<KhachHang> selecALL() {
         return this.selectBySql(SELECT_ALL_SQL);
     }
 
-    @Override
-    public KhachHang selectById(String key) {
+    public KhachHang selectById(Integer key) {
     List<KhachHang> list = this.selectBySql(SELECt_BY_ID_SQL, key);
         if (list.isEmpty()) {
             return null;
         }
         return list.get(0);    
     }
-    public List<KhachHang> selectByKH(Integer key) {
+    public List<KhachHang> selectByKH(int key) {
         return this.selectBySql(SELECt_BY_ID_SQL,key);
     }
     @Override
@@ -62,9 +58,9 @@ List<KhachHang> list = new ArrayList<>();
                 entity.setTenKH(rs.getString(2));
                 entity.setGioiTinh(rs.getBoolean(3));
                 entity.setSDT(rs.getString(4));
-                
-                entity.setTrangThai(rs.getInt(5));
-                
+                entity.setGhiChu(rs.getString(5));
+                entity.setTrangThai(rs.getInt(6));
+             
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
@@ -73,5 +69,13 @@ List<KhachHang> list = new ArrayList<>();
             throw new RuntimeException(e);
         }        
     }
-    
+
+
+
+
+
+    @Override
+    public void delete(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }   
 }

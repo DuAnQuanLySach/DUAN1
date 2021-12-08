@@ -7,10 +7,12 @@ package GUI;
 
 import Entity.KhachHang;
 import DAO.KhachHangDAO;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import utils.MsgBox;
+import utils.XHeper;
 
 /**
  *
@@ -67,15 +69,20 @@ public class KhachHangForm1 extends javax.swing.JPanel {
 
         txtGhiChu.setColumns(20);
         txtGhiChu.setRows(5);
+        txtGhiChu.setName("ghi chú"); // NOI18N
         jScrollPane2.setViewportView(txtGhiChu);
 
         jLabel4.setText("Số Điện Thoại");
+
+        txtSDT.setName("số điện thoại"); // NOI18N
 
         jLabel1.setText("Mã Khách Hàng");
 
         jLabel2.setText("Tên Khách hàng");
 
         jLabel5.setText("Trạng Thái");
+
+        txtKH.setName("tên khách hàng"); // NOI18N
 
         buttonGroup2.add(rdoHD);
         rdoHD.setSelected(true);
@@ -250,7 +257,8 @@ public class KhachHangForm1 extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         jPanel7Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtKH, txtMaKH, txtSDT});
@@ -274,19 +282,33 @@ public class KhachHangForm1 extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
             this.index = tblKH.getSelectedRow();
             showInfo();
-            updateStatus();}
+            updateStatus();
+        }
     }//GEN-LAST:event_tblKHMouseClicked
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        insert();
+        if (MsgBox.comfirm(this, "Bạn muốn thêm Khách hàng không?")) {
+            resetColor();
+            if (XHeper.checkNullText(txtKH) && XHeper.checkNullText(txtSDT) && XHeper.checkSDTALL(txtSDT)) {
+                insert();
+            }
+        }
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        update();
+        if (MsgBox.comfirm(this, "Bạn chắc chắn muốn sửa không?")) {
+            if (XHeper.checkNullText(txtKH) && XHeper.checkNullText(txtSDT) && XHeper.checkSDTALL(txtSDT)) {
+                update();
+            }
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        ClearForm();
+        if (MsgBox.comfirm(this, "Bạn có muốn làm mới form?")) {
+            resetColor();
+            ClearForm();
+            txtKH.requestFocus();
+        }
     }//GEN-LAST:event_btnClearActionPerformed
 
 
@@ -329,13 +351,13 @@ public class KhachHangForm1 extends javax.swing.JPanel {
             this.list = dao.selecALL(); // đọc dữ liệu từ CSDL
             for (KhachHang kh : list) {
                 // thêm một hàng vào table
-                this.model.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.isGioiTinh() == true ? "Nam" : "Nữ", kh.getSDT(), kh.getGhiChu(), kh.getTrangThai()== 1 ? "Đang hoạt động" : "Không hoạt động" });
+                this.model.addRow(new Object[]{kh.getMaKH(), kh.getTenKH(), kh.isGioiTinh() == true ? "Nam" : "Nữ", kh.getSDT(), kh.getGhiChu(), kh.getTrangThai() == 1 ? "Đang hoạt động" : "Không hoạt động"});
             }
         } catch (Exception e) {
             MsgBox.alert(this, "Lỗi truy vấn dữ liệu");
             e.printStackTrace();
         }
-        txtMaKH.setText((list.size()+1)+"");
+        txtMaKH.setText((list.size() + 1) + "");
         txtMaKH.setEnabled(false);
     }
 
@@ -350,21 +372,22 @@ public class KhachHangForm1 extends javax.swing.JPanel {
     }
 
     private void showInfo() {
-        String maKH = (String) tblKH.getValueAt(this.index, 0);
-        KhachHang kh = dao.selectById(maKH);
+        int maKH = (Integer) tblKH.getValueAt(this.index, 0);
+        KhachHang kh =  dao.selectById(maKH);
         this.setForm(kh);
     }
-    
+
     private void setForm(KhachHang kh) {
         this.txtMaKH.setText(kh.getMaKH()+"");
         this.txtKH.setText(kh.getTenKH());
         this.txtSDT.setText(kh.getSDT());
+        this.txtGhiChu.setText(kh.getGhiChu());
         if (kh.getTrangThai() == 1) {
             rdoHD.setSelected(true);
         } else {
             rdoKHD.setSelected(true);
         }
-        if (kh.isGioiTinh()== true) {
+        if (kh.isGioiTinh() == true) {
             rdoNam.setSelected(true);
         } else {
             rdoNu.setSelected(true);
@@ -374,9 +397,9 @@ public class KhachHangForm1 extends javax.swing.JPanel {
     private void ClearForm() {
         KhachHang kh = new KhachHang();
         this.setForm(kh);
-        txtMaKH.setText((list.size()+1)+"");
+        txtMaKH.setText((list.size() + 1) + "");
         this.index = -1;
-        this.updateStatus();  
+        this.updateStatus();
         txtMaKH.setEnabled(false);
     }
 
@@ -389,21 +412,31 @@ public class KhachHangForm1 extends javax.swing.JPanel {
             MsgBox.alert(this, "Thêm mới thành công");
         } catch (Exception e) {
             MsgBox.alert(this, "Thêm mới thất bại");
-        }    }
+        }
+    }
+
     private KhachHang getForm() {
         KhachHang kh = new KhachHang();
         kh.setMaKH(Integer.parseInt(this.txtMaKH.getText()));
         kh.setTenKH(this.txtKH.getText());
         kh.setSDT(this.txtSDT.getText());
         kh.setGhiChu(this.txtGhiChu.getText());
-        if(rdoNam.isSelected()){kh.setGioiTinh(true);} else {kh.setGioiTinh(false);}
-        if(rdoHD.isSelected()){kh.setTrangThai(1);} else {kh.setTrangThai(0);}
+        if (rdoNam.isSelected()) {
+            kh.setGioiTinh(true);
+        } else {
+            kh.setGioiTinh(false);
+        }
+        if (rdoHD.isSelected()) {
+            kh.setTrangThai(1);
+        } else {
+            kh.setTrangThai(0);
+        }
         return kh;
     }
 
     private void update() {
         KhachHang kh = getForm();
-       try {
+        try {
             dao.update(kh);
             fillTable();
             tblKH.setRowSelectionInterval(index, index);
@@ -411,6 +444,12 @@ public class KhachHangForm1 extends javax.swing.JPanel {
         } catch (Exception e) {
             MsgBox.alert(this, "Cập nhật thất bại");
         }
+    }
+
+    private void resetColor() {
+        txtKH.setBackground(Color.WHITE);
+        txtSDT.setBackground(Color.WHITE);
+        txtGhiChu.setBackground(Color.WHITE);
     }
 
 }

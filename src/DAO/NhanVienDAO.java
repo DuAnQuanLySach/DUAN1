@@ -25,7 +25,7 @@ public class NhanVienDAO extends DAO<NhanVien, Integer> {
     String SELECT_ALL_SQL = "SELECT * FROM NhanVien ";
     String SELECt_BY_ID_SQL = "SELECT  *from NhanVien where EMAIL= ?";
     String SELECT_BY_ID_SQL = "SELECT  *from NhanVien where MANV= ?";
-    String SELECt_BY_ID_SQLNV = "SELECT*from NhanVien where MANV= ?";
+    String SELECt_BY_ID_SQLNV = "SELECT * from NhanVien where MANV= ?";
 
     @Override
     public void insert(NhanVien entity) {
@@ -42,7 +42,7 @@ public class NhanVienDAO extends DAO<NhanVien, Integer> {
         return this.selectBySql(SELECT_ALL_SQL);
     }
 
-    public NhanVien selectByIdNV(String key) {
+    public NhanVien selectByIdNV(int key) {
         List<NhanVien> list = this.selectBySql(SELECt_BY_ID_SQLNV, key);
         if (list.isEmpty()) {
             return null;

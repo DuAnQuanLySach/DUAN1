@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class LoaiBiaDAO extends DAO<LoaiBia, String>{
+public class LoaiBiaDAO extends DAO<LoaiBia, Integer>{
      String INSERT_SQL = "INSERT INTO LoaiBia (MALB, TENLB, TRANGTHAI) VALUES (?, ?, ?)";
     String UPDATE_SQL = "UPDATE LoaiBia SET TENLB=?, TRANGTHAI=? WHERE MALB=? ";
     String DELETE_SQL = "DELETE FROM LoaiBia WHERE MALB=? ";
@@ -31,7 +31,7 @@ public class LoaiBiaDAO extends DAO<LoaiBia, String>{
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
       JDBCHelper.jdbcHelper.update(DELETE_SQL, id);
     }
 
@@ -41,7 +41,7 @@ public class LoaiBiaDAO extends DAO<LoaiBia, String>{
     }
 
     @Override
-    public LoaiBia selectById(String key) {
+    public LoaiBia selectById(Integer key) {
 List<LoaiBia> list = this.selectBySql(SELECt_BY_ID_SQL, key);
         if (list.isEmpty()) {
             return null;

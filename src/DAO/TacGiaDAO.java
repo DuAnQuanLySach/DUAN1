@@ -12,6 +12,7 @@ public class TacGiaDAO extends DAO<TacGia, String> {
             + "SET IDENTITY_INSERT TACGIA OFF";
     String UPDATE_SQL = "UPDATE TACGIA SET TENTG=?, BUTDANH=?, DIACHI=?, TRANGTHAI=? WHERE MATG=? ";
     String DELETE_SQL = "DELETE FROM TACGIA WHERE MATG=? ";
+    String SELECT_ALLHD_SQL ="SELECT * FROM TACGIA WHERE TRANGTHAI = 1";
     String SELECT_ALL_SQL = "SELECT * FROM TACGIA ";
     String SELECt_BY_ID_SQL = "SELECT*from TACGIA where MATG= ?";
 
@@ -32,6 +33,9 @@ public class TacGiaDAO extends DAO<TacGia, String> {
 
     @Override
     public List<TacGia> selecALL() {
+        return this.selectBySql(SELECT_ALLHD_SQL);
+    }
+    public List<TacGia> selecALLL() {
         return this.selectBySql(SELECT_ALL_SQL);
     }
 

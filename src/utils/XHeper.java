@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Sieu Nhan Bay
+ * @author ADMIN
  */
 public class XHeper {
 
@@ -126,6 +126,8 @@ public class XHeper {
             return false;
         }
     }
+    
+    
 
     //gồm các ký tự chữ đấu cách
     //từ 3-25 kí tự
@@ -144,15 +146,15 @@ public class XHeper {
 
     //bất kì kí tự nào
     //từ 3-50 kí tự
-    public static boolean checkTenCD(JTextField txt) {
+    public static boolean checkTenHT(JTextField txt) {
         txt.setBackground(white);
         String id = txt.getText();
-        String rgx = ".{3,50}";
+        String rgx = "HT\\d{3}";
         if (id.matches(rgx)) {
             return true;
         } else {
             txt.setBackground(pink);
-            MsgBox.alert(txt.getRootPane(), txt.getName() + " phải từ 3-50 kí tự.");
+            MsgBox.alert(txt.getRootPane(), txt.getName() + " phải có dạng HTxxx (xxx là số, vd: HT123)");
             return false;
         }
     }
@@ -187,15 +189,42 @@ public class XHeper {
         }
     }
 
+    public static boolean checkSDTALL(JTextField txt) {
+        txt.setBackground(white);
+        String id = txt.getText();
+        String rgx = "(024|028|086|096|097|098|032|033|034|035|036|037|038|039|089|090|093|070|079|077|078|076|088|091|094|083|084|085|081|082|092|056|058|099|059)[0-9]{7,13}";
+        if (id.matches(rgx)) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            MsgBox.alert(txt.getRootPane(), "Mời nhập số điện thoại ít nhất 10 sô \nhoặc kiểm tra lại đầu số của nhà mạng.");
+            return false;
+        }
+    }
+
     public static boolean checkEmail(JTextField txt) {
         txt.setBackground(white);
         String id = txt.getText();
-        String rgx = "^[a-zA-Z][a-zA-Z0-9_\\.]{2,32}@[a-zA-Z0-9]{2,10}(\\.[a-zA-Z0-9]{2,4}){1,2}$";
+        String rgx = "^[a-zA-Z][\\\\w-]+@([\\\\w]+\\\\.[\\\\w]+|[\\\\w]+\\\\.[\\\\w]{2,}\\\\.[\\\\w]{2,})$";
         if (id.matches(rgx)) {
             return true;
         } else {
             txt.setBackground(pink);
             MsgBox.alert(txt.getRootPane(), txt.getName() + " không đúng định dạng");
+            return false;
+        }
+    }
+    
+       public static boolean checkGio(JTextField txt) {
+        txt.setBackground(white);
+        String id = txt.getText();
+        String rgx = "([0-1]{0,1}[0-9]{1}|[2]{1}[0-3]{1})+:+([0-5]{1}[0-9]{1})";
+        if (id.matches(rgx)) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            MsgBox.alert(txt.getRootPane(), txt.getName() + " không đúng định dạng.\n"
+                    + "Mời nhập theo dạng: hh:mm");
             return false;
         }
     }
@@ -242,7 +271,7 @@ public class XHeper {
         txt.setBackground(white);
         try {
             float hp = Float.parseFloat(txt.getText());
-            if ((hp >= 0 && hp <= 10)||hp==-1) {
+            if ((hp >= 0 && hp <= 10) || hp == -1) {
                 return true;
             } else {
                 txt.setBackground(pink);

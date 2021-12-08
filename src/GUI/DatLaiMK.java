@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import javax.swing.JFrame;
 import utils.MsgBox;
 import utils.HashingPass;
+import utils.XHeper;
 
 public class DatLaiMK extends javax.swing.JFrame {
 
@@ -101,23 +102,27 @@ public class DatLaiMK extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnResertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResertActionPerformed
-        if (new String(this.txtMatKhauMoi.getPassword()).equals(new String(this.txtXacNhanMatKhau.getPassword()))) {
-            try {
-                String update = "UPDATE NhanVien SET MatKhau = ? WHERE Email ='" + user + "'";
-                Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLBHSACH", "sa", "123456");
-                PreparedStatement ps = conn.prepareStatement(update);
-                ps.setString(1, txtXacNhanMatKhau.getText());
-                ps.executeUpdate();
-                MsgBox.alert(this, "Thay đổi mật khẩu thành công");
-                LoginForm login = new LoginForm();
-                this.setVisible(false);
-                login.setVisible(true);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        if (MsgBox.comfirm(this, "Bạn có chắc chắn muốn đổi mật khẩu?")) {
+            if (XHeper.checkNullText(txtMatKhauMoi) && XHeper.checkNullText(txtXacNhanMatKhau)) {
+                if (new String(this.txtMatKhauMoi.getPassword()).equals(new String(this.txtXacNhanMatKhau.getPassword()))) {
+                    try {
+                        String update = "UPDATE NhanVien SET MatKhau = ? WHERE Email ='" + user + "'";
+                        Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLBHSACH", "sa", "123456");
+                        PreparedStatement ps = conn.prepareStatement(update);
+                        ps.setString(1, txtXacNhanMatKhau.getText());
+                        ps.executeUpdate();
+                        MsgBox.alert(this, "Thay đổi mật khẩu thành công");
+                        LoginForm login = new LoginForm();
+                        this.setVisible(false);
+                        login.setVisible(true);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    MsgBox.alert(this, "Mật khẩu và mật khẩu xác nhận không giống nhau");
+                    return;
+                }
             }
-        } else {
-            MsgBox.alert(this, "Mật khẩu và mật khẩu xác nhận không giống nhau");
-            return;
         }
     }//GEN-LAST:event_btnResertActionPerformed
 
@@ -146,6 +151,18 @@ public class DatLaiMK extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DatLaiMK.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -23,4 +23,14 @@ public class Validator {
             return false;
         }
     }
+    public static boolean checkId(JTextField txt, String str, StringBuilder sb, String mes) {
+        if (txt.getText().equalsIgnoreCase(str)) {
+            sb.append(mes).append("\n");
+            txt.setBackground(Color.red);
+            return false;
+        } else {
+            txt.setBackground(Color.white);
+            return true;
+        }
+    }
 }

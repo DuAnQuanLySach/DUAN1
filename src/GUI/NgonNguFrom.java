@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import utils.MsgBox;
+import utils.XHeper;
 
 /**
  *
@@ -257,7 +258,8 @@ public class NgonNguFrom extends javax.swing.JPanel {
         jLabel10.setText("Trạng Thái");
 
         btngrNN.add(rdbhdNN);
-        rdbhdNN.setText("ĐangHD");
+        rdbhdNN.setSelected(true);
+        rdbhdNN.setText("Đang hoạt động");
         rdbhdNN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdbhdNNActionPerformed(evt);
@@ -265,7 +267,7 @@ public class NgonNguFrom extends javax.swing.JPanel {
         });
 
         btngrNN.add(rdbKHDNN);
-        rdbKHDNN.setText("KhôngHD");
+        rdbKHDNN.setText("Không hoạt động");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -283,7 +285,7 @@ public class NgonNguFrom extends javax.swing.JPanel {
                 .addGap(71, 71, 71)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(rdbhdNN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rdbKHDNN, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(rdbKHDNN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(265, 265, 265)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -403,7 +405,8 @@ public class NgonNguFrom extends javax.swing.JPanel {
         });
 
         btngrDT.add(rdbHĐT);
-        rdbHĐT.setText("ĐangHĐ");
+        rdbHĐT.setSelected(true);
+        rdbHĐT.setText("Đang hoạt động");
         rdbHĐT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdbHĐTActionPerformed(evt);
@@ -411,7 +414,7 @@ public class NgonNguFrom extends javax.swing.JPanel {
         });
 
         btngrDT.add(rdbKHĐT);
-        rdbKHĐT.setText("KhôngHĐ");
+        rdbKHĐT.setText("Không hoạt động");
         rdbKHĐT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdbKHĐTActionPerformed(evt);
@@ -442,11 +445,11 @@ public class NgonNguFrom extends javax.swing.JPanel {
                                     .addComponent(txtMaDoTuoi, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                                     .addComponent(txtDoTuoi))))
                         .addGap(65, 65, 65)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rdbKHĐT, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdbHĐT, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                            .addComponent(rdbKHĐT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rdbHĐT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnSuaDT, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
@@ -514,15 +517,28 @@ public class NgonNguFrom extends javax.swing.JPanel {
     }//GEN-LAST:event_txtMaNNActionPerformed
 
     private void btnUpdateNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateNNActionPerformed
-        this.btnUpdateNN();
+        if (MsgBox.comfirm(this, "Bạn có chắc muốn sửa không?")) {
+//            if (XHeper.checkNullText(txtLoaiNN) && XHeper.checkNullText(txtMaNN)) {
+                this.btnUpdateNN();
+//            }
+        }
     }//GEN-LAST:event_btnUpdateNNActionPerformed
 
     private void btnInsertNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertNNActionPerformed
-        this.btnInsertNN();
+        if (MsgBox.comfirm(this, "Bạn có muốn thêm ngôn ngữ không?")) {
+//            resetColorNN();
+//            if (XHeper.checkNullText(txtLoaiNN) && XHeper.checkNullText(txtMaNN)) {
+                this.btnInsertNN();
+//            }
+        }
     }//GEN-LAST:event_btnInsertNNActionPerformed
 
     private void btnCleanNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanNNActionPerformed
-        this.btnCleanNN();
+        if (MsgBox.comfirm(this, "Bạn có chắc muốn làm mới không?")) {
+            resetColorNN();
+            this.btnCleanNN();
+            txtLoaiNN.requestFocus();
+        }
     }//GEN-LAST:event_btnCleanNNActionPerformed
 
     private void tblNNAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tblNNAncestorAdded
@@ -550,6 +566,7 @@ public class NgonNguFrom extends javax.swing.JPanel {
                 rdbhdNN.setSelected(false);
             }
         }
+        resetColorNN();
     }//GEN-LAST:event_tblNNMouseClicked
 
     private void rdbKHĐTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbKHĐTActionPerformed
@@ -561,15 +578,28 @@ public class NgonNguFrom extends javax.swing.JPanel {
     }//GEN-LAST:event_rdbHĐTActionPerformed
 
     private void btnNhapMoiDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapMoiDTActionPerformed
-        this.btnNhapMoiDT();
+        if (MsgBox.comfirm(this, "Bạn có chắc muốn làm mới không?")) {
+            resetColorDT();
+            this.btnNhapMoiDT();
+            txtMaDoTuoi.requestFocus();
+        }
     }//GEN-LAST:event_btnNhapMoiDTActionPerformed
 
     private void btnSuaDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaDTActionPerformed
-        this.btnSuaDT();
+        if (MsgBox.comfirm(this, "Bạn có chắc chắn muốn sửa không?")) {
+//            if (XHeper.checkNullText(txtMaDoTuoi) && XHeper.checkNullText(txtDoTuoi)) {
+                this.btnSuaDT();
+//            }
+        }
     }//GEN-LAST:event_btnSuaDTActionPerformed
 
     private void btnThemDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDTActionPerformed
-        this.btnThemDT();
+        if (MsgBox.comfirm(this, "Bạn có muốn thêm độ tuổi không?")) {
+            resetColorDT();
+//            if (XHeper.checkNullText(txtMaDoTuoi) && XHeper.checkNullText(txtDoTuoi)) {
+                this.btnThemDT();
+//            }
+        }
     }//GEN-LAST:event_btnThemDTActionPerformed
 
     private void txtMaDoTuoiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaDoTuoiKeyTyped
@@ -712,7 +742,7 @@ public class NgonNguFrom extends javax.swing.JPanel {
             NgonNgu ngonNgu = getFormNN();
             dAOnn.insert(ngonNgu);
             filltableNN();
-            JOptionPane.showMessageDialog(this, "Sách đã được lưu vào csdl");
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
             e.printStackTrace();
@@ -832,6 +862,16 @@ public class NgonNguFrom extends javax.swing.JPanel {
             e.printStackTrace();
         }
 
+    }
+
+    private void resetColorNN() {
+        txtLoaiNN.setBackground(Color.WHITE);
+        txtMaNN.setBackground(Color.WHITE);
+    }
+
+    private void resetColorDT() {
+        txtMaDoTuoi.setBackground(Color.WHITE);
+        txtDoTuoi.setBackground(Color.WHITE);
     }
 
 }

@@ -112,7 +112,7 @@
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Component id="jLabel29" min="-2" pref="90" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="txtTenNXB2" min="-2" pref="217" max="-2" attributes="0"/>
+                                                  <Component id="txtTenNXB" min="-2" pref="217" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -164,7 +164,7 @@
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtTenNXB2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTenNXB" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -274,6 +274,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup1"/>
                 </Property>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="&#x110;ang Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
               </Properties>
               <Events>
@@ -292,6 +293,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtSDTNXB">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="s&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i" noResource="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSDTNXBActionPerformed"/>
               </Events>
@@ -302,6 +306,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDiachiNXB">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="&#x111;&#x1ecb;a ch&#x1ec9;" noResource="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDiachiNXBActionPerformed"/>
               </Events>
@@ -311,9 +318,15 @@
                 <Property name="text" type="java.lang.String" value="T&#xea;n Nh&#xe0; Xu&#x1ea5;t B&#x1ea3;n"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtTenNXB2">
+            <Component class="javax.swing.JTextField" name="txtTenNXB">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="t&#xea;n nh&#xe0; xu&#x1ea5;t b&#x1ea3;n" noResource="true"/>
+              </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTenNXB2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTenNXBActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnClearNXB">
@@ -346,11 +359,17 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTenNCC">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="t&#xea;n nh&#xe0; cung c&#x1ea5;p" noResource="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTenNCCActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDiachiNCC">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="&#x111;&#x1ecb;a ch&#x1ec9;" noResource="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDiachiNCCActionPerformed"/>
               </Events>
@@ -366,6 +385,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtSDTNCC">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="s&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i" noResource="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSDTNCCActionPerformed"/>
               </Events>
@@ -380,6 +402,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup2"/>
                 </Property>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="&#x110;ang Ho&#x1ea1;t D&#x1ed9;ng"/>
               </Properties>
               <Events>
