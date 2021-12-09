@@ -149,7 +149,7 @@ public class BanHangFromms extends javax.swing.JPanel {
             btnhh[i] = createButton(cTSach.getMaCTS() + "");
             btnhh[i].setText(getTieuDe(cTSach.getMaSach()));
             btnhh[i].setPreferredSize(new Dimension(100, 100));
-            btnhh[i].setIcon(utils.XImage.readLogo(cTSach.getHinh()));
+//            btnhh[i].setIcon(utils.XImage.readLogo(cTSach.getHinh()));
             Pbody3.add(btnhh[i]);
             btnhh[i].addActionListener((ActionEvent ae) -> {
                 if (f < 0) {
