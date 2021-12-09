@@ -802,8 +802,7 @@ public class BanHangFromms extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -969,13 +968,13 @@ public class BanHangFromms extends javax.swing.JPanel {
             boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn thanh toán đơn hàng!");
             if (tt) {
                 if (f >= 0) {
-                    int q = t + 16;
+                    listHD = hdD.selectHDChuaTT();
+                    t = listHD.size();
                     HoaDon hd = getUpdateFrom(f);
                     hdD.updateTHD(hd);
                     PBody2.removeAll();
                     updateUI();
                     addArrayButtonHD();
-                    updateUI();
                 } else {
                     utils.MsgBox.comfirm(this, "Mời bạn chọn hóa đơn cần thanh toán!");
                 }
@@ -1033,15 +1032,17 @@ public class BanHangFromms extends javax.swing.JPanel {
             //            utils.MsgBox.alert(this, "khách chưa thanh toán đủ hoặc nhập sai định dạng mời nhập lại!");
             //        } 
         }else {
-            boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn thanh toán đơn hàng!");
+            boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn giao đơn hàng này!");
             if (tt) {
                 if (f >=0) {
-                    int q = t + 16;
+                    listHD = hdD.selectHDChuaTT();
+                    t = listHD.size();
                     HoaDon hd = getUpdateFrom(f);
                     hdD.updateTHD(hd);
+                    hdD.updateTTHD(k, 2, f);
+                    PBody2.removeAll();
                     updateUI();
                     addArrayButtonHD();
-                    updateUI();
                 } else {
                     utils.MsgBox.comfirm(this, "Mời bạn chọn hóa đơn cần thanh toán!");
                 }
