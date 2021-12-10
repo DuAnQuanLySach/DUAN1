@@ -49,7 +49,8 @@ public class HomeFrom extends javax.swing.JFrame {
         MenuItem menuStaff1 = new MenuItem(iconSubMenu, "Sách và Chi Tiết Sách", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new CTS());
                     panelBody.repaint();
@@ -61,13 +62,18 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
 
         MenuItem menuStaff2 = new MenuItem(iconSubMenu, " Thể Loại", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new TheLoaiForm());
                     panelBody.repaint();
@@ -79,12 +85,17 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuStaff3 = new MenuItem(iconSubMenu, "Tác Giả ", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new TacGiaForm());
                     panelBody.repaint();
@@ -96,12 +107,17 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuStaff4 = new MenuItem(iconSubMenu, "Nhà Xuất Bản và Nhà Cung Cấp", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new NhaXBvsCC());
                     panelBody.repaint();
@@ -113,12 +129,17 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuNNDT = new MenuItem(iconSubMenu, "Ngôn Ngữ Và Độ Tuổi", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new NgonNguFrom());
                     panelBody.repaint();
@@ -130,12 +151,17 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuHTLB = new MenuItem(iconSubMenu, "Hình Thức,Loại Bìa", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new HinhThucLoaiBia());
                     panelBody.repaint();
@@ -147,6 +173,10 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
 
@@ -154,7 +184,8 @@ public class HomeFrom extends javax.swing.JFrame {
         MenuItem menuBanHang = new MenuItem(iconNext, "Bán Hàng", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new BanHangFromms());
                     panelBody.repaint();
@@ -166,23 +197,33 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuNhanHang = new MenuItem(iconNext, "Nhập Hàng", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
 
                 } else {
                     index = 1;
-                    MsgBox.alert(menus, "Hiện chức năng đang bảo trì!");
+                    MsgBox.alert(panelBody, "Hiện chức năng đang bảo trì!");
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuDoanhThu = new MenuItem(iconNext, "Doanh Thu", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new ThongKe());
                     panelBody.repaint();
@@ -194,13 +235,18 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
 
         MenuItem menuHome = new MenuItem(iconHome, "Trang Chủ", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new PageForm());
                     panelBody.repaint();
@@ -212,12 +258,17 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
           MenuItem menuQLHD = new MenuItem(iconNext, "QL Hóa Đơn", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                   panelBody.removeAll();
                     panelBody.add(new QLHoaDon());
                     panelBody.repaint();
@@ -229,6 +280,10 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuQLSach = new MenuItem(iconBook, "Quản Lý Sách", null, menuStaff1, menuStaff2,menuStaff3, menuStaff4, menuNNDT,menuHTLB);
@@ -236,7 +291,8 @@ public class HomeFrom extends javax.swing.JFrame {
         MenuItem menuQLNV = new MenuItem(iconUser, "Quản Lý Nhân viên", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new NhanVienvsVaitro());
                     panelBody.repaint();
@@ -248,12 +304,17 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
         MenuItem menuQLKH = new MenuItem(iconClient, "Quản Lý Khách Hàng", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (index == 1) {
+                if (utils.Auth.isLogin()) {
+                    if (index == 1) {
                     panelBody.removeAll();
                     panelBody.add(new KhachHangForm1());
                     panelBody.repaint();
@@ -265,6 +326,10 @@ public class HomeFrom extends javax.swing.JFrame {
                     panelBody.repaint();
                     panelBody.revalidate();
                 }
+                }else{
+                   utils.MsgBox.alert(panelBody, "Mời bạn đăng nhập");
+                }
+                
             }
         });
       

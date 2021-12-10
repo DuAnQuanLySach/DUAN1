@@ -246,17 +246,17 @@ public class CTS extends javax.swing.JPanel {
         cts.setGia(Float.parseFloat(txtGia.getText()));
         cts.setSl(Integer.parseInt(txtSLS.getText()));
         cts.setHinh(linKImg);
-        cts.setSoTrang(0);
+        cts.setSoTrang(Integer.parseInt(txtSotra.getText()));
         cts.setMaHT(cbbHinhThuc.getSelectedItem().toString());
         cts.setTenNhaCP(cbbNcc.getSelectedItem().toString());
         int i = listLB.get(cbbLoaiBia.getSelectedIndex()).getMaLB();
         cts.setMaLB(i);
         cts.setMaDTuoi(cbbDoTuoi.getSelectedIndex());
         cts.setMaNN(cbbNN.getSelectedItem().toString());
-        if (rdbDB.isSelected()) {
-            cts.setTrangThai(0);
-        } else {
+        if (rdbDban.isSelected()) {
             cts.setTrangThai(1);
+        } else {
+            cts.setTrangThai(0);
         }
         return cts;
 
@@ -323,9 +323,7 @@ public class CTS extends javax.swing.JPanel {
         this.SetFromS(s);
     }
 
-    void editCTS() {
-
-    }
+    
 
     void selectImage() {
         try {
@@ -386,6 +384,8 @@ public class CTS extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         rdbDban = new javax.swing.JRadioButton();
         rdbKoBan = new javax.swing.JRadioButton();
+        jLabel18 = new javax.swing.JLabel();
+        txtSotra = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtMaS = new javax.swing.JTextField();
@@ -543,6 +543,8 @@ public class CTS extends javax.swing.JPanel {
         buttonGroup2.add(rdbKoBan);
         rdbKoBan.setText("Không còn bán");
 
+        jLabel18.setText("Số trang");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -573,7 +575,7 @@ public class CTS extends javax.swing.JPanel {
                     .addComponent(cbbNN, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbVT, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -594,7 +596,12 @@ public class CTS extends javax.swing.JPanel {
                             .addGap(40, 40, 40)
                             .addComponent(rdbDban)
                             .addGap(33, 33, 33)
-                            .addComponent(rdbKoBan))))
+                            .addComponent(rdbKoBan)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSotra, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(109, 109, 109))
         );
         jPanel3Layout.setVerticalGroup(
@@ -634,7 +641,9 @@ public class CTS extends javax.swing.JPanel {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel15)
-                                        .addComponent(txtSLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtSLS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel18)
+                                        .addComponent(txtSotra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -870,9 +879,8 @@ public class CTS extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (MsgBox.comfirm(this, "Bạn có chắc muốn sửa không?")) {
-            if (utils.XHeper.checkNullText(txtGia) && XHeper.checkTien(txtGia) && utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS)) {
+            if (utils.XHeper.checkNullText(txtGia) && XHeper.checkTien(txtGia) && utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS)&&utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS)) {
                 Updatects();
-                editCTS();
                 LoadQLCTS();
             }
         }
@@ -931,7 +939,6 @@ public class CTS extends javax.swing.JPanel {
         if (MsgBox.comfirm(this, "Bạn có muốn thêm chi tiết sách không?")) {
             if (utils.XHeper.checkNullText(txtGia) && XHeper.checkTien(txtGia) && utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS)) {
                 insertctS();
-                editCTS();
                 LoadQLCTS();
             }
         }
@@ -984,6 +991,7 @@ public class CTS extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1012,6 +1020,7 @@ public class CTS extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaS;
     private javax.swing.JTextField txtSL;
     private javax.swing.JTextField txtSLS;
+    private javax.swing.JTextField txtSotra;
     private javax.swing.JTextField txtTieuDe;
     // End of variables declaration//GEN-END:variables
 

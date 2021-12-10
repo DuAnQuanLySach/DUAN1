@@ -75,7 +75,7 @@ public class BanHangFromms extends javax.swing.JPanel {
             cbbTheLoai.addItem(tl.getTenTL());
         }
     }
-
+           
     String getMaSach(int s) {
         list = CTSD.selectBykey(s);
         for (CTSach cTSach : list) {
@@ -968,10 +968,10 @@ public class BanHangFromms extends javax.swing.JPanel {
             boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn thanh toán đơn hàng!");
             if (tt) {
                 if (f >= 0) {
-                    listHD = hdD.selectHDChuaTT();
-                    t = listHD.size();
                     HoaDon hd = getUpdateFrom(f);
                     hdD.updateTHD(hd);
+                    listHD = hdD.selectHDChuaTT();
+                    t = listHD.size();
                     PBody2.removeAll();
                     updateUI();
                     addArrayButtonHD();

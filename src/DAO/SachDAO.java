@@ -19,6 +19,7 @@ public class SachDAO extends DAO<Sach, String>{
     String DELETE_SQL = "DELETE FROM SACH WHERE MASACH=? ";
     String SELECT_ALL_SQL = "SELECT * FROM SACH";
     String SELECt_BY_ID_SQL = "SELECT*from SACH where MASACH= ?";
+    String SELECt_BY_TieuDe_SQL = "SELECT*from SACH where TIEUDE= ?";
     String UPDATESL_SQL = "UPDATE SACH SET TONGLUONGSACH=? WHERE MASACH=? ";
     @Override
     public void insert(Sach entity) {
@@ -40,6 +41,10 @@ public class SachDAO extends DAO<Sach, String>{
     public List<Sach> selectBykey(String key) {
         
         return selectBySql(SELECt_BY_ID_SQL,key);
+    }
+    public List<Sach> selectByTieuDe(String key) {
+        
+        return selectBySql(SELECt_BY_TieuDe_SQL,key);
     }
     public void deletems(Sach entity){
         JDBCHelper.jdbcHelper.update(INSERT_SQL,entity.isTrangThai(), entity.getMaSach());
