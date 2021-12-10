@@ -57,14 +57,11 @@ public class BanHangFromms extends javax.swing.JPanel {
         listS = sD.selecALL();
         list = CTSD.selecALL();
         listHD = hdD.selectHDChuaTT();
-        listkh = khDao.selecALL();
         listTLS = tlsDao.selecALL();
         listTL = tlDao.selecALL();
         addArrayButtonSP();
-//        addIcon();
         addArrayButtonHD();
         LoadCbbKH();
-        System.out.println(list.get(4).getMaCTS());
         ComboBoxTheLoai();
     }
 
@@ -103,10 +100,11 @@ public class BanHangFromms extends javax.swing.JPanel {
     }
 
     void LoadCbbKH() {
+        listkh = khDao.selecALL();
         DefaultComboBoxModel model = (DefaultComboBoxModel) cbbKH.getModel();
         model.removeAllElements();
         for (KhachHang kh : listkh) {
-            cbbKH.addItem(kh.getMaKH() + "");
+            cbbKH.addItem(kh.getTenKH() + "");
         }
     }
     private int row = 0;
@@ -143,13 +141,14 @@ public class BanHangFromms extends javax.swing.JPanel {
 
     public void addArrayButtonSP() {
         row = list.size();
+        System.out.println(row);
         int i = 0;
         btnhh = new JButton[row];
         for (CTSach cTSach : list) {
             btnhh[i] = createButton(cTSach.getMaCTS() + "");
             btnhh[i].setText(getTieuDe(cTSach.getMaSach()));
             btnhh[i].setPreferredSize(new Dimension(100, 100));
-//            btnhh[i].setIcon(utils.XImage.readLogo(cTSach.getHinh()));
+            btnhh[i].setIcon(utils.XImage.readLogoSP(cTSach.getHinh()));
             Pbody3.add(btnhh[i]);
             btnhh[i].addActionListener((ActionEvent ae) -> {
                 if (f < 0) {
@@ -171,66 +170,6 @@ public class BanHangFromms extends javax.swing.JPanel {
         return btn;
     }
 
-//    void addIcon() {
-//        y = list.size();
-//        if (y >= 16) {
-//            if (IconIndex1 + 16 <= list.size()) {
-//                for (int i = IconIndex1; i < IconIndex1 + 16; i++) {
-//                    for (int j = 0; j < 16; j++) {
-//                        btn[j].setIcon(utils.XImage.readLogo(list.get(j).getHinh()));
-//                    }
-//                }
-//            }else if (IconIndex1 + 16 > list.size() || IconIndex1 > list.size()) {
-//                    for (int i = IconIndex1; i < y; i++) {
-//                        for (int j = 0; j < 16; j++) {
-//                            btn[j].setIcon(utils.XImage.readLogo(list.get(i).getHinh()));
-//                        }
-//                    }
-//                    for (int i = y; i < 16; i++) {
-//                        btn[i].setEnabled(false);
-//                    }
-//                }
-//        } else if (y < 16) {
-//            for (int i = 0; i < y; i++) {
-//                btn[i].setIcon(utils.XImage.readLogo(list.get(i).getHinh()));
-//            }
-//            for (int i = y; i < 16; i++) {
-//                btn[i].setEnabled(false);
-//            }
-//        }
-//    }
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        String btnIndex = e.getActionCommand();
-//        String s1 = btnIndex.substring(8);
-//        x = Integer.parseInt(s1);
-//        if (x > 15) {
-//            for (int i = 0; i < t; i++) {
-//                if (x == 16 + i) {
-//                    f = i;
-//                    row = x;
-//                    HoaDon h = getFrom(i);
-//                    Setfrom(h);
-//                    LoadDTableHDCT(listHD.get(i).getMaHd());
-//                    break;
-//                }
-//            }
-//        } else if (x < 15) {
-//            if (f < 0) {
-//                utils.MsgBox.alert(this, "Mời bạn chọn hóa đơn");
-//            } else {
-//                for (int i = 0; i < 16; i++) {
-//                    if (x == i) {
-//                        idhang = i + IconIndex1;
-//                        list = CTSD.selecALL();
-//                        checkh();
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//    }
     int getSLS(String mas) {
         List<Sach> listSach = sD.selectBykey(mas);
         for (Sach sach : listSach) {
@@ -255,6 +194,15 @@ public class BanHangFromms extends javax.swing.JPanel {
         for (CTHoaDon cT : listCT) {
             if (x == cT.getMaCTS()) {
                 return cT.getMaCTHD();
+            }
+        }
+        return 0;
+    }
+    float getgia(int x) {
+        list = CTSD.selectBykey(x);
+        for (CTSach cT : list) {
+            if (x == cT.getMaCTS()) {
+                return cT.getGia();
             }
         }
         return 0;
@@ -299,7 +247,7 @@ public class BanHangFromms extends javax.swing.JPanel {
         ct.setMaCTHD(getMaCTHD(x));
         ct.setMaCTS(x);
         ct.setMaHD(f);
-        ct.setGiaBan(list.get(x).getGia());
+        ct.setGiaBan(getgia(x));
         ct.setSoLuong(sl);
         ct.setTieude(getTieuDe(getMaSach(x)));
         ct.setGhiChu("");
@@ -928,10 +876,7 @@ public class BanHangFromms extends javax.swing.JPanel {
 
     private void cbbKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbKHActionPerformed
 
-        List<KhachHang> list = khDao.selectByKH(listkh.get(cbbKH.getSelectedIndex()).getMaKH());
-        for (KhachHang khachHang : list) {
-            jMenuItem1.setText(khachHang + "");
-        }
+            jMenuItem1.setText("Load lại CBB khách hàng");
     }//GEN-LAST:event_cbbKHActionPerformed
 
     private void lblKhMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhMouseExited
@@ -956,7 +901,7 @@ public class BanHangFromms extends javax.swing.JPanel {
     }//GEN-LAST:event_TblcthMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+        LoadCbbKH();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTTActionPerformed

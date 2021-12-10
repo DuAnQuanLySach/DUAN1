@@ -514,9 +514,7 @@ public class TheLoaiForm extends javax.swing.JPanel {
     private void btnInsertTLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertTLSActionPerformed
         if (MsgBox.comfirm(this, "Bạn muốn thêm thể loại sách không?")) {
             txtMaTLS.setBackground(Color.white);
-            if (XHeper.checkNullText(txtMaTLS)) {
                 insertTLS();
-            }
         }
     }//GEN-LAST:event_btnInsertTLSActionPerformed
 

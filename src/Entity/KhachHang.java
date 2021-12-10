@@ -71,4 +71,10 @@ public class KhachHang {
     public void setTrangThai(int TrangThai) {
         this.TrangThai = TrangThai;
     }
+
+    @Override
+    public String toString() {
+        return TenKH;
+    }
+    
 }

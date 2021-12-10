@@ -19,7 +19,7 @@ public class CTSachDAO extends DAO<CTSach, Integer>{
      String INSERT_SQL = "INSERT INTO CHITIETSACH (MASACH, GIA, SOLUONG, SOTRANG, HINH, MAHINHTHUC, TENNHACUNGCAP, MALB, MADTUOI, MANN, TRANGTHAI) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     String UPDATE_SQL = "UPDATE CHITIETSACH SET MASACH=?, GIA=?, SOLUONG=?, SOTRANG=?, HINH=?, MAHINHTHUC=?, TENNHACUNGCAP=?, MALB=?, MADTUOI=?, MANN=?,TRANGTHAI=? WHERE MACTS=? ";
     String DELETE_SQL = "DELETE FROM CHITIETSACH WHERE MACTS=? ";
-    String SELECT_ALL_SQL = "SELECT * FROM CHITIETSACH";
+    String SELECT_ALL_SQL = "SELECT * FROM CHITIETSACH where TRANGTHAI=1";
     String SELECt_BY_ID_SQL = "SELECT * from CHITIETSACH where MACTS= ?";
     String SELECt_BY_HinhThuc_SQL = "SELECT*from CHITIETSACH where MAHINHTHUC=?";
     String SELECT_MAS_SQL = "SELECT * FROM CHITIETSACH WHERE MACTS=?";
@@ -73,8 +73,6 @@ public class CTSachDAO extends DAO<CTSach, Integer>{
                 entity.setMaDTuoi(rs.getInt(10));
                 entity.setMaNN(rs.getString(11));
                 entity.setTrangThai(rs.getInt(12));
-                
-                
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

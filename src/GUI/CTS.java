@@ -94,7 +94,7 @@ public class CTS extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblQlS.getModel();
         model.setRowCount(0);
         for (Sach s : listS) {
-            model.addRow(new Object[]{s.getMaSach(), s.getTieuDe(), s.getTenNhaXB(), s.getTongSach(), s.isTrangThai()==1?"Đang bán":"Không còn bán"});
+            model.addRow(new Object[]{s.getMaSach(), s.getTieuDe(), s.getTenNhaXB(), s.getTongSach(), s.isTrangThai() == 1 ? "Đang bán" : "Không còn bán"});
         }
     }
 
@@ -103,11 +103,12 @@ public class CTS extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblQLCTS.getModel();
         model.setRowCount(0);
         for (CTSach s : list) {
-            model.addRow(new Object[]{s.getMaSach(), s.getGia(), s.getSl(), s.getMaHT(), s.getSoTrang(), s.getTenNhaCP(), s.getHinh(), s.getMaLB(), s.getMaDTuoi(), s.getMaNN(), s.getTrangThai()==1?"Đang bán":"Không còn bán"});
+            model.addRow(new Object[]{s.getMaSach(), s.getGia(), s.getSl(), s.getMaHT(), s.getSoTrang(), s.getTenNhaCP(), s.getHinh(), s.getMaLB(), s.getMaDTuoi(), s.getMaNN(), s.getTrangThai() == 1 ? "Đang bán" : "Không còn bán"});
         }
     }
 
     void ComboBoxMaS() {
+        listS = sD.selecALL();
         DefaultComboBoxModel model = (DefaultComboBoxModel) cbbMas.getModel();
         model.removeAllElements();
         for (Sach s : listS) {
@@ -241,23 +242,23 @@ public class CTS extends javax.swing.JPanel {
     }
 
     CTSach getFromSCTSach() {
+        int roww = tblQLCTS.getSelectedRow();
         CTSach cts = new CTSach();
-        cts.setMaSach(cbbMas.getSelectedItem().toString());
+        cts.setMaCTS(list.get(row).getMaCTS());
+        cts.setMaSach(cbbMas.getSelectedItem() + "");
         cts.setGia(Float.parseFloat(txtGia.getText()));
         cts.setSl(Integer.parseInt(txtSLS.getText()));
         cts.setHinh(linKImg);
         cts.setSoTrang(Integer.parseInt(txtSotra.getText()));
-        cts.setMaHT(cbbHinhThuc.getSelectedItem().toString());
-        cts.setTenNhaCP(cbbNcc.getSelectedItem().toString());
+        cts.setMaHT(cbbHinhThuc.getSelectedItem() + "");
+        cts.setTenNhaCP(cbbNcc.getSelectedItem() + "");
         int i = listLB.get(cbbLoaiBia.getSelectedIndex()).getMaLB();
         cts.setMaLB(i);
-        cts.setMaDTuoi(cbbDoTuoi.getSelectedIndex());
-        cts.setMaNN(cbbNN.getSelectedItem().toString());
-        if (rdbDban.isSelected()) {
-            cts.setTrangThai(1);
-        } else {
-            cts.setTrangThai(0);
-        }
+        cts.setMaDTuoi(cbbDoTuoi.getSelectedIndex() + 1);
+        cts.setMaNN(listNN.get(cbbNN.getSelectedIndex()).getMaNN());
+
+        cts.setTrangThai(rdbDban.isSelected() ? 1 : 0);
+
         return cts;
 
     }
@@ -268,6 +269,7 @@ public class CTS extends javax.swing.JPanel {
         cbbMas.setSelectedItem(cts.getMaSach());
         cbbHinhThuc.setSelectedItem(cts.getMaHT());
         cbbNcc.setSelectedItem(cts.getTenNhaCP());
+        txtSotra.setText(cts.getSoTrang() + "");
         for (DoTuoi doTuoi : listDT) {
             if (doTuoi.getMaDTuoi() == cts.getMaDTuoi()) {
                 cbbDoTuoi.setSelectedIndex(listDT.indexOf(doTuoi));
@@ -314,6 +316,7 @@ public class CTS extends javax.swing.JPanel {
         }
         if (cts.getHinh() != null) {
             lblHinh.setIcon(XImage.readLogo(cts.getHinh()));
+            linKImg = cts.getHinh();
         }
     }
 
@@ -322,8 +325,6 @@ public class CTS extends javax.swing.JPanel {
         Sach s = sD.selectById(mas);
         this.SetFromS(s);
     }
-
-    
 
     void selectImage() {
         try {
@@ -386,6 +387,7 @@ public class CTS extends javax.swing.JPanel {
         rdbKoBan = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         txtSotra = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtMaS = new javax.swing.JTextField();
@@ -545,20 +547,29 @@ public class CTS extends javax.swing.JPanel {
 
         jLabel18.setText("Số trang");
 
+        jLabel19.setText("Load");
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap()
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtGia, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cbbTheLoai, javax.swing.GroupLayout.Alignment.LEADING, 0, 227, Short.MAX_VALUE)
-                        .addComponent(cbbMas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                        .addComponent(cbbMas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(62, 62, 62)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7)
@@ -618,7 +629,8 @@ public class CTS extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbbMas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbbNcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbbHinhThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbbHinhThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -878,10 +890,12 @@ public class CTS extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbVTActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (MsgBox.comfirm(this, "Bạn có chắc muốn sửa không?")) {
-            if (utils.XHeper.checkNullText(txtGia) && XHeper.checkTien(txtGia) && utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS)&&utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS)) {
+        if (MsgBox.comfirm(this, "Bạn có chắc muốn sửa không?") == true) {
+            if (utils.XHeper.checkNullText(txtGia) && XHeper.checkTien(txtGia) && utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS) && utils.XHeper.checkNullText(txtSotra) && XHeper.checkNunBer(txtSotra)) {
                 Updatects();
                 LoadQLCTS();
+            } else {
+                MsgBox.alert(this, "loi");
             }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
@@ -893,7 +907,7 @@ public class CTS extends javax.swing.JPanel {
     }//GEN-LAST:event_tblQlSMouseClicked
 
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
-        if (MsgBox.comfirm(this, "Bạn muốn thêm sách không?")) {
+        if (MsgBox.comfirm(this, "Bạn muốn thêm sách không?") == true) {
             if (XHeper.checkNullText(txtMaS) && XHeper.checkS(txtMaS) && XHeper.checkNullText(txtTieuDe) && XHeper.checkNullText(txtSL) && XHeper.checkNunBer(txtSL)) {
                 resetColorS();
                 insertS();
@@ -903,7 +917,7 @@ public class CTS extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThem1ActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
-        if (MsgBox.comfirm(this, "Bạn có chắc muốn sửa không?")) {
+        if (MsgBox.comfirm(this, "Bạn có chắc muốn sửa không?") == true) {
             if (XHeper.checkNullText(txtMaS) && XHeper.checkS(txtMaS) && XHeper.checkNullText(txtTieuDe) && XHeper.checkNullText(txtSL) && XHeper.checkNunBer(txtSL)) {
                 Updates();
                 edit();
@@ -913,10 +927,10 @@ public class CTS extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
-        if (MsgBox.comfirm(this, "Bạn có muốn làm mới không?")) {
-        Sach s = new Sach();
-        this.SetFromS(s);
-        this.row = -1;
+        if (MsgBox.comfirm(this, "Bạn có muốn làm mới không?") == true) {
+            Sach s = new Sach();
+            this.SetFromS(s);
+            this.row = -1;
         }
     }//GEN-LAST:event_btnCleanActionPerformed
 
@@ -936,7 +950,7 @@ public class CTS extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (MsgBox.comfirm(this, "Bạn có muốn thêm chi tiết sách không?")) {
+        if (MsgBox.comfirm(this, "Bạn có muốn thêm chi tiết sách không?") == true) {
             if (utils.XHeper.checkNullText(txtGia) && XHeper.checkTien(txtGia) && utils.XHeper.checkNullText(txtSLS) && XHeper.checkNunBer(txtSLS)) {
                 insertctS();
                 LoadQLCTS();
@@ -963,6 +977,10 @@ public class CTS extends javax.swing.JPanel {
     private void rdbDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbDBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbDBActionPerformed
+
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+        ComboBoxMaS();
+    }//GEN-LAST:event_jLabel19MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -992,6 +1010,7 @@ public class CTS extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
