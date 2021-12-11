@@ -29,9 +29,11 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.RowFilter;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import utils.MsgBox;
 import utils.XHeper;
 import utils.XImage;
@@ -343,6 +345,20 @@ public class CTS extends javax.swing.JPanel {
         } catch (Exception e) {
             MsgBox.alert(this, "Chọn ảnh thất bại");
         }
+    }
+
+    private void search(String str) {
+        DefaultTableModel model = (DefaultTableModel) tblQlS.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+        tblQlS.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(str));
+    }
+
+    private void searchCTS(String str) {
+        DefaultTableModel model = (DefaultTableModel) tblQLCTS.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+        tblQLCTS.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(str));
     }
 
     @SuppressWarnings("unchecked")
@@ -684,11 +700,22 @@ public class CTS extends javax.swing.JPanel {
 
         jLabel10.setText("Mã Sách");
 
+        txtMaS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMaSKeyReleased(evt);
+            }
+        });
+
         jLabel2.setText("Tiêu Đề");
 
         txtTieuDe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTieuDeActionPerformed(evt);
+            }
+        });
+        txtTieuDe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTieuDeKeyReleased(evt);
             }
         });
 
@@ -981,6 +1008,16 @@ public class CTS extends javax.swing.JPanel {
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
         ComboBoxMaS();
     }//GEN-LAST:event_jLabel19MouseClicked
+
+    private void txtMaSKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaSKeyReleased
+        String find = txtMaS.getText();
+        searchCTS(find);
+    }//GEN-LAST:event_txtMaSKeyReleased
+
+    private void txtTieuDeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTieuDeKeyReleased
+        String find = txtTieuDe.getText();
+        search(find);
+    }//GEN-LAST:event_txtTieuDeKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

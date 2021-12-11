@@ -44,7 +44,7 @@ public class XImage {
     }
     public static ImageIcon readLogoSP(String fileName) {
         File path = new File("logos",fileName);
-        return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        return new ImageIcon(new ImageIcon(path.getAbsolutePath()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
     }
 
     
