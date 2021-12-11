@@ -70,6 +70,7 @@ public class ThongKe extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
+        jPanel1.setBackground(new java.awt.Color(51, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thống kê doanh thu"));
 
         cboNamThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Năm", "Tháng", " " }));

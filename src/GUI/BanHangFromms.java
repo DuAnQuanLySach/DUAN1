@@ -960,6 +960,7 @@ public class BanHangFromms extends javax.swing.JPanel {
                 if (f >= 0) {
                     HoaDon hd = getUpdateFrom(f);
                     hdD.updateTHD(hd);
+                    
                     PBody2.removeAll();
                     updateUI();
                     listHD = hdD.selectHDChuaTT();
