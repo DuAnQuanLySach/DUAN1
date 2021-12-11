@@ -1,3 +1,0 @@
-HoaDon{MaHd=15, MaKH=1, MaNV=5, TongSL=0, TongTien=47000.0, Ngaymua=2021-12-11, GhiChu=Đã up date Trạng Thái LúcSat Dec 11 21:21:03 ICT 2021, TrangThai=2, ThuKhac=47000.0}
-HoaDon{MaHd=24, MaKH=9, MaNV=5, TongSL=5, TongTien=825000.0, Ngaymua=2021-12-12, GhiChu=Đã up date Trạng Thái LúcSun Dec 12 02:54:31 ICT 2021, TrangThai=2, ThuKhac=0.0}
-HoaDon{MaHd=25, MaKH=1, MaNV=5, TongSL=0, TongTien=0.0, Ngaymua=2021-12-12, GhiChu=, TrangThai=1, ThuKhac=0.0}
