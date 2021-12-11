@@ -17,6 +17,8 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import GUI.HomeFrom;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -32,7 +34,7 @@ public class BanHangFromms extends javax.swing.JPanel {
     int q = 0;
     int f = -1;
     int a;
-    float b;
+    float b, c;
     String update = "Đã up date Trạng Thái Lúc" + utils.XDate.now();
     TheLoaiDAO tlDao = new TheLoaiDAO();
     TheLoaiSachDAO tlsDao = new TheLoaiSachDAO();
@@ -50,9 +52,11 @@ public class BanHangFromms extends javax.swing.JPanel {
     List<CTHoaDon> listCT;
     KhachHangDAO khDao = new KhachHangDAO();
     List<KhachHang> listkh;
+    DefaultTableModel model;
 
     public BanHangFromms() {
         initComponents();
+        model = (DefaultTableModel) Tblcth.getModel();
         listS = sD.selecALL();
         list = CTSD.selecALL();
         listHD = hdD.selectHDChuaTT();
@@ -91,7 +95,6 @@ public class BanHangFromms extends javax.swing.JPanel {
     void LoadDTableHDCT(int key) {
         int index = 1;
         listCT = ctD.selectbykey(key);
-        DefaultTableModel model = (DefaultTableModel) Tblcth.getModel();
         model.setRowCount(0);
         for (CTHoaDon cTH : listCT) {
             model.addRow(new Object[]{index++, getMaSach(cTH.getMaCTS()), cTH.getTieude(), cTH.getGiaBan(), cTH.getSoLuong()});
@@ -134,10 +137,10 @@ public class BanHangFromms extends javax.swing.JPanel {
                 f = hoaDon.getMaHd();
                 x = hoaDon.getTrangThai();
                 y = hoaDon.getMaKH();
+                c = hoaDon.getThuKhac();
                 HoaDon h = getFrom(hoaDon.getMaHd(), hoaDon.getTrangThai(), hoaDon.getMaKH(), hoaDon.getThuKhac());
                 Setfrom(h);
                 LoadDTableHDCT(hoaDon.getMaHd());
-                System.out.println(hoaDon.getMaHd());
             });
             i++;
         }
@@ -156,14 +159,19 @@ public class BanHangFromms extends javax.swing.JPanel {
             btnhh[i].setIcon(utils.XImage.readLogoSP(cTSach.getHinh()));
             Pbody3.add(btnhh[i]);
             btnhh[i].addActionListener((ActionEvent ae) -> {
-                if (f < 0) {
-                    utils.MsgBox.alert(this, "Mời bạn chọn hóa đơn");
-                } else {
-                    idhang = cTSach.getMaCTS();
-                    slcts = cTSach.getSl();
-                    list = CTSD.selecALL();
-                    checkh();
-
+                try {
+                    if (f < 0) {
+                        utils.MsgBox.alert(this, "Mời bạn chọn hóa đơn");
+                    } else {
+                        idhang = cTSach.getMaCTS();
+                        slcts = cTSach.getSl();
+                        list = CTSD.selecALL();
+                        checkh();
+                        HoaDon h = getFrom(f, x, y, c);
+                        Setfrom(h);
+                        LoadDTableHDCT(f);
+                    }
+                } catch (Exception e) {
                 }
             });
         }
@@ -194,6 +202,15 @@ public class BanHangFromms extends javax.swing.JPanel {
 
     }
 
+    void cleanFrom() {
+        cbbKH.setSelectedIndex(1);
+        txtSL.setText("0");
+        txtTongTien.setText("0");
+        txtThuKhac.setText("0");
+        txtKhacPhaiTra.setText("0");
+        txtThanhToan.setText("0");
+    }
+
     int getMaCTHD(int x) {
         listHD = hdD.selectHDChuaTT();
         for (CTHoaDon cT : listCT) {
@@ -215,36 +232,39 @@ public class BanHangFromms extends javax.swing.JPanel {
     }
 
     void checkh() {
-        listHD = hdD.selectHDChuaTT();
-        int a = 0;
-        for (CTHoaDon cT : listCT) {
-            if (idhang == cT.getMaCTS() && f == cT.getMaHD()) {
-                utils.MsgBox.alert(this, "Mặt Hàng Đã có xin chỉnh số luong trên bảng!");
-                break;
+        try {
+            listHD = hdD.selectHDChuaTT();
+            int a = 0;
+            for (CTHoaDon cT : listCT) {
+                if (idhang == cT.getMaCTS() && f == cT.getMaHD()) {
+                    utils.MsgBox.alert(this, "Mặt Hàng Đã có xin chỉnh số luong trên bảng!");
+                    break;
+                }
+                a++;
             }
-            a++;
-        }
-        if (a == listCT.size()) {
-            String sl = utils.MsgBox.prompt(this, "Mời bạn nhập số lượng");
-            if (sl.length() == 0) {
+            if (a == listCT.size()) {
+                String sl = utils.MsgBox.prompt(this, "Mời bạn nhập số lượng");
+                if (sl.length() == 0) {
 
-            } else if (sl.matches("\\d{0,5}")) {
-                int roww = 0;
-                int c = Integer.parseInt(sl.trim());
-                if (c > 0 && c < slcts) {
-                    CTHoaDon cthd = UpdateCTHD(idhang, f, c, c);
-                    ctD.insert(cthd);
-                    LoadDTableHDCT(f);
-                    sD.updateSL(getSLS(getMaSach(idhang)) - c, getMaSach(idhang));
-                    CTSD.updateSL(getSLSCT(idhang) - c, idhang);
+                } else if (sl.matches("\\d{0,5}")) {
+                    int roww = 0;
+                    int c = Integer.parseInt(sl.trim());
+                    if (c > 0 && c < slcts) {
+                        CTHoaDon cthd = UpdateCTHD(idhang, f, c, c);
+                        ctD.insert(cthd);
+                        LoadDTableHDCT(f);
+                        sD.updateSL(getSLS(getMaSach(idhang)) - c, getMaSach(idhang));
+                        CTSD.updateSL(getSLSCT(idhang) - c, idhang);
+                    } else {
+                        utils.MsgBox.alert(this, "Quá số lượng hàng có trong Kho!");
+                    }
+
                 } else {
-                    utils.MsgBox.alert(this, "Quá số lượng hàng có trong Kho!");
+                    utils.MsgBox.alert(this, "Nhập Không Đúng Định Dạng!");
                 }
 
-            } else {
-                utils.MsgBox.alert(this, "Nhập Không Đúng Định Dạng!");
             }
-
+        } catch (Exception e) {
         }
     }
 
@@ -272,8 +292,8 @@ public class BanHangFromms extends javax.swing.JPanel {
         b = 0;
         for (CTHoaDon cT : listCT) {
             if (maHD == cT.getMaHD()) {
-                a = cT.getSoLuong() + a;
-                b = (float) (cT.getGiaBan() + b);
+                a = cT.getSoLuong();
+                b = (float) (cT.getGiaBan() * a);
             }
         }
         System.out.println(a + "...." + b);
@@ -340,7 +360,7 @@ public class BanHangFromms extends javax.swing.JPanel {
         if (txtThuKhac.getText().equals("0")) {
             txtKhacPhaiTra.setText(b + "");
         } else if (!(txtThuKhac.getText().equals("0")) && utils.XHeper.checkTien(txtThuKhac)) {
-            txtKhacPhaiTra.setText(b + Float.parseFloat(txtThuKhac.getText()) + "VND");
+            txtKhacPhaiTra.setText(b + Float.parseFloat(txtThuKhac.getText()) + "");
         } else {
             txtKhacPhaiTra.setText(b + "");
         }
@@ -353,12 +373,28 @@ public class BanHangFromms extends javax.swing.JPanel {
         }
         txtGhiChus.setText(h.getGhiChu());
     }
-    private void search(String str){
-        DefaultTableModel model = (DefaultTableModel)   Tblcth.getModel();
-                TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+
+    private void search(String str) {
+        DefaultTableModel model = (DefaultTableModel) Tblcth.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         Tblcth.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter(str));
     }
+
+    void saveFiletxt() {
+        try {
+            FileWriter fl = new FileWriter("C:\\Users\\User\\OneDrive\\Desktop\\DUAN1\\DUAN1\\Hoadon" + f + ".txt");
+            BufferedWriter bw = new BufferedWriter(fl);
+            for (HoaDon hd : listHD) {
+                bw.write(hd.toString());
+                bw.newLine();
+            }
+            bw.close();
+            fl.close();
+        } catch (Exception e) {
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -908,11 +944,18 @@ public class BanHangFromms extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
-        insertHoaDon();
-        listHD = hdD.selectHDChuaTT();
-        PBody2.removeAll();
-        updateUI();
-        addArrayButtonHD();
+        try {
+            boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn tạo hóa đơn!");
+            if (tt == true) {
+                insertHoaDon();
+                listHD = hdD.selectHDChuaTT();
+                PBody2.removeAll();
+                updateUI();
+                addArrayButtonHD();
+            }
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_btnTaoHDActionPerformed
 
     private void btnTaoHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoHDMouseClicked
@@ -950,26 +993,36 @@ public class BanHangFromms extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTTActionPerformed
-        if (txtThanhToan.getText().length() == 0 || utils.XHeper.checkTien(txtThanhToan) == false) {
-            utils.MsgBox.alert(this, "khách chưa thanh toán hoặc nhập sai định dạng mời nhập lại!");
-        } else if (Float.parseFloat(txtThanhToan.getText()) < Float.parseFloat(txtKhacPhaiTra.getText()) || utils.XHeper.checkTien(txtThanhToan) == false) {
-            utils.MsgBox.alert(this, "khách chưa thanh toán đủ hoặc nhập sai định dạng mời nhập lại!");
-        } else {
-            boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn thanh toán đơn hàng!");
-            if (tt) {
-                if (f >= 0) {
-                    HoaDon hd = getUpdateFrom(f);
-                    hdD.updateTHD(hd);
-                    
-                    PBody2.removeAll();
-                    updateUI();
-                    listHD = hdD.selectHDChuaTT();
-                    t = listHD.size();
-                    addArrayButtonHD();
-                } else {
-                    utils.MsgBox.comfirm(this, "Mời bạn chọn hóa đơn cần thanh toán!");
+        try {
+            if (txtThanhToan.getText().length() == 0 || utils.XHeper.checkTien(txtThanhToan) == false) {
+                utils.MsgBox.alert(this, "khách chưa thanh toán hoặc nhập sai định dạng mời nhập lại!");
+            } else if (Float.parseFloat(txtThanhToan.getText()) < Float.parseFloat(txtKhacPhaiTra.getText()) || utils.XHeper.checkTien(txtThanhToan) == false) {
+                utils.MsgBox.alert(this, "khách chưa thanh toán đủ hoặc nhập sai định dạng mời nhập lại!");
+            } else if (txtTongTien.getText().equals("0.0")) {
+                utils.MsgBox.alert(this, "Hóa đơn chưa có gì ko thể thanh toán");
+            } else {
+                boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn thanh toán đơn hàng!");
+                if (tt) {
+                    if (f >= 0) {
+                        for (int i = 0; i < listCT.size(); i++) {
+                            model.removeRow(i);
+                        }
+                        HoaDon hd = getUpdateFrom(f);
+                        hdD.updateTHD(hd);
+                        saveFiletxt();
+                        cleanFrom();
+                        PBody2.removeAll();
+                        updateUI();
+                        listHD = hdD.selectHDChuaTT();
+                        t = listHD.size();
+                        addArrayButtonHD();
+                        f = -1;
+                    } else {
+                        utils.MsgBox.comfirm(this, "Mời bạn chọn hóa đơn cần thanh toán!");
+                    }
                 }
             }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_btnTTActionPerformed
 
@@ -1022,26 +1075,32 @@ public class BanHangFromms extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void btnGiaoHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaoHangActionPerformed
-        if (txtThanhToan.getText().length() > 0 && utils.XHeper.checkTien(txtThanhToan) == false) {
-            utils.MsgBox.alert(this, "khách chưa thanh toán hoặc nhập sai định dạng mời nhập lại!");
-        } else {
-            boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn giao đơn hàng này!");
-            if (tt) {
-                if (f >= 0) {
-                    listHD = hdD.selectHDChuaTT();
-                    t = listHD.size();
-                    HoaDon hd = getUpdateFrom(f);
-                    hdD.updateTHD(hd);
-                    hdD.updateTTHD(update + txtGhiChus.getText(), 2, f);
-                    PBody2.removeAll();
-                    updateUI();
-                    listHD = hdD.selectHDChuaTT();
-                    t = listHD.size();
-                    addArrayButtonHD();
-                } else {
-                    utils.MsgBox.comfirm(this, "Mời bạn chọn hóa đơn cần thanh toán!");
+        try {
+            if (txtThanhToan.getText().length() > 0 && utils.XHeper.checkTien(txtThanhToan) == false) {
+                utils.MsgBox.alert(this, "khách chưa thanh toán hoặc nhập sai định dạng mời nhập lại!");
+            } else {
+                boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn giao đơn hàng này!");
+                if (tt) {
+                    if (f >= 0) {
+                        listHD = hdD.selectHDChuaTT();
+                        t = listHD.size();
+                        HoaDon hd = getUpdateFrom(f);
+                        hdD.updateTHD(hd);
+                        hdD.updateTTHD(update + txtGhiChus.getText(), 2, f);
+                        saveFiletxt();
+                        cleanFrom();
+                        PBody2.removeAll();
+                        updateUI();
+                        listHD = hdD.selectHDChuaTT();
+                        t = listHD.size();
+                        addArrayButtonHD();
+                        f = -1;
+                    } else {
+                        utils.MsgBox.comfirm(this, "Mời bạn chọn hóa đơn cần thanh toán!");
+                    }
                 }
             }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_btnGiaoHangActionPerformed
 
@@ -1141,18 +1200,18 @@ public class BanHangFromms extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbTheLoaiMouseClicked
 
     private void txtTenSachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenSachKeyReleased
-       
+
     }//GEN-LAST:event_txtTenSachKeyReleased
 
     private void txtTenSachFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenSachFocusGained
-       if (txtTenSach.getText().equals("Nhập Tên sách")) {
+        if (txtTenSach.getText().equals("Nhập Tên sách")) {
             txtTenSach.setText("");
             txtTenSach.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_txtTenSachFocusGained
 
     private void txtTenSachFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenSachFocusLost
-       if (txtTenSach.getText().equals("")) {
+        if (txtTenSach.getText().equals("")) {
             txtTenSach.setText("");
             txtTenSach.setForeground(new Color(153, 153, 153));
         }

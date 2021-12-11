@@ -1,13 +1,14 @@
 
 package Entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author ADMIN
  */
-public class HoaDon {
+public class HoaDon implements Serializable{
     private int MaHd;
     private int MaKH;
     private int MaNV;
@@ -20,6 +21,8 @@ public class HoaDon {
 
     public HoaDon() {
     }
+
+    
 
     public HoaDon(int MaHd, int MaKH, int MaNV, int TongSL, float TongTien, Date Ngaymua, String GhiChu, int TrangThai, float ThuKhac) {
         this.MaHd = MaHd;
@@ -105,6 +108,9 @@ public class HoaDon {
         this.ThuKhac = ThuKhac;
     }
 
-    
+    @Override
+    public String toString() {
+        return "HoaDon{" + "MaHd=" + MaHd + ", MaKH=" + MaKH + ", MaNV=" + MaNV + ", TongSL=" + TongSL + ", TongTien=" + TongTien + ", Ngaymua=" + Ngaymua + ", GhiChu=" + GhiChu + ", TrangThai=" + TrangThai + ", ThuKhac=" + ThuKhac + '}';
+    }
     
 }

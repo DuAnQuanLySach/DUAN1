@@ -68,6 +68,7 @@ public class ThongKe extends javax.swing.JPanel {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(51, 204, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jPanel1.setBackground(new java.awt.Color(51, 204, 255));

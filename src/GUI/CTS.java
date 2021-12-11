@@ -369,6 +369,9 @@ public class CTS extends javax.swing.JPanel {
         jMenuItem1 = new javax.swing.JMenuItem();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -403,7 +406,6 @@ public class CTS extends javax.swing.JPanel {
         rdbKoBan = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         txtSotra = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtMaS = new javax.swing.JTextField();
@@ -431,6 +433,16 @@ public class CTS extends javax.swing.JPanel {
                 jMenuItem1ActionPerformed(evt);
             }
         });
+
+        jMenuItem2.setText("Load Cbb");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("jMenuItem3");
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         setLayout(new java.awt.BorderLayout());
@@ -484,6 +496,11 @@ public class CTS extends javax.swing.JPanel {
             .addComponent(lblHinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
         );
 
+        cbbMas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cbbMasMousePressed(evt);
+            }
+        });
         cbbMas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbMasActionPerformed(evt);
@@ -563,21 +580,12 @@ public class CTS extends javax.swing.JPanel {
 
         jLabel18.setText("Số trang");
 
-        jLabel19.setText("Load");
-        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel19MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel3)
@@ -586,7 +594,7 @@ public class CTS extends javax.swing.JPanel {
                         .addComponent(txtGia, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cbbTheLoai, javax.swing.GroupLayout.Alignment.LEADING, 0, 227, Short.MAX_VALUE)
                         .addComponent(cbbMas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(62, 62, 62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7)
                     .addComponent(cbbDoTuoi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -602,7 +610,7 @@ public class CTS extends javax.swing.JPanel {
                     .addComponent(cbbNN, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbVT, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -645,8 +653,7 @@ public class CTS extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbbMas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbbNcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbbHinhThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19))
+                            .addComponent(cbbHinhThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -792,7 +799,7 @@ public class CTS extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rdbKB))
                             .addComponent(cbbNXB1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addComponent(btnThem1)
                         .addGap(43, 43, 43)
                         .addComponent(btnSua1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1005,10 +1012,6 @@ public class CTS extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdbDBActionPerformed
 
-    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
-        ComboBoxMaS();
-    }//GEN-LAST:event_jLabel19MouseClicked
-
     private void txtMaSKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaSKeyReleased
         String find = txtMaS.getText();
         searchCTS(find);
@@ -1018,6 +1021,16 @@ public class CTS extends javax.swing.JPanel {
         String find = txtTieuDe.getText();
         search(find);
     }//GEN-LAST:event_txtTieuDeKeyReleased
+
+    private void cbbMasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbMasMousePressed
+        int m = MouseInfo.getPointerInfo().getLocation().x;
+        int n = MouseInfo.getPointerInfo().getLocation().y;
+        this.jPopupMenu2.show(this, m, n);
+    }//GEN-LAST:event_cbbMasMousePressed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       ComboBoxMaS();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1047,7 +1060,6 @@ public class CTS extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1057,12 +1069,15 @@ public class CTS extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblHinh;
