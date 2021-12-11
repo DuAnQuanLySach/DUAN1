@@ -16,11 +16,12 @@ public class HoaDon {
     private Date Ngaymua;
     private String GhiChu;
     private int TrangThai;
+    private float ThuKhac;
 
     public HoaDon() {
     }
 
-    public HoaDon(int MaHd, int MaKH, int MaNV, int TongSL, float TongTien, Date Ngaymua, String GhiChu, int TrangThai) {
+    public HoaDon(int MaHd, int MaKH, int MaNV, int TongSL, float TongTien, Date Ngaymua, String GhiChu, int TrangThai, float ThuKhac) {
         this.MaHd = MaHd;
         this.MaKH = MaKH;
         this.MaNV = MaNV;
@@ -29,6 +30,7 @@ public class HoaDon {
         this.Ngaymua = Ngaymua;
         this.GhiChu = GhiChu;
         this.TrangThai = TrangThai;
+        this.ThuKhac = ThuKhac;
     }
 
     public int getMaHd() {
@@ -95,5 +97,14 @@ public class HoaDon {
         this.TrangThai = TrangThai;
     }
 
+    public float getThuKhac() {
+        return ThuKhac;
+    }
+
+    public void setThuKhac(float ThuKhac) {
+        this.ThuKhac = ThuKhac;
+    }
+
+    
     
 }

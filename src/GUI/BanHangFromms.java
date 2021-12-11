@@ -32,7 +32,6 @@ public class BanHangFromms extends javax.swing.JPanel {
     int f = -1;
     int a;
     float b;
-    String k;
     String update = "Đã up date Trạng Thái Lúc" + utils.XDate.now();
     TheLoaiDAO tlDao = new TheLoaiDAO();
     TheLoaiSachDAO tlsDao = new TheLoaiSachDAO();
@@ -52,7 +51,6 @@ public class BanHangFromms extends javax.swing.JPanel {
     List<KhachHang> listkh;
 
     public BanHangFromms() {
-        this.k = "Người tạo" + utils.Auth.user;
         initComponents();
         listS = sD.selecALL();
         list = CTSD.selecALL();
@@ -111,9 +109,9 @@ public class BanHangFromms extends javax.swing.JPanel {
     private JButton[] btnHD;
     private JButton[] btnhh;
 
-    void insertHoaDon(String k) {
+    void insertHoaDon() {
 
-        HoaDon h = getHD(k);
+        HoaDon h = getHD();
         hdD.insert(h);
     }
 
@@ -280,20 +278,21 @@ public class BanHangFromms extends javax.swing.JPanel {
         hd.setTongSL(a);
         hd.setTongTien(b);
         hd.setTrangThai(TT);
-        hd.setGhiChu(k + txtGhiChus.getText());
+        hd.setGhiChu(txtGhiChus.getText());
         return hd;
     }
 
-    HoaDon getHD(String k) {
+    HoaDon getHD() {
         HoaDon hd = new HoaDon();
         hd.setMaNV(utils.Auth.iSMaNV());
-        String makh = (String) cbbKH.getSelectedItem();
-        hd.setMaKH(Integer.parseInt(makh));
+        int makh =cbbKH.getSelectedIndex();
+        hd.setMaKH(listkh.get(makh).getMaKH());
         hd.setNgaymua(utils.XDate.now());
         hd.setTongSL(0);
         hd.setTongTien(0);
-        hd.setGhiChu(k);
+        hd.setGhiChu("");
         hd.setTrangThai(1);
+        hd.setThuKhac(b);
         return hd;
     }
 
@@ -302,9 +301,10 @@ public class BanHangFromms extends javax.swing.JPanel {
         getSLTT(i);
         hd.setMaHd(i);
         hd.setTongSL(a);
-        hd.setTongTien(b);
+        hd.setTongTien(b +Float.parseFloat(txtThuKhac.getText()));
         hd.setNgaymua(utils.XDate.now());
         hd.setTrangThai(0);
+        hd.setThuKhac(Float.parseFloat(txtThuKhac.getText()));
         return hd;
     }
 
@@ -312,7 +312,10 @@ public class BanHangFromms extends javax.swing.JPanel {
         cbbKH.setSelectedItem(h.getMaKH());
         txtSL.setText(a + "");
         txtTongTien.setText(b + "");
-        if (txtThuKhac.getText().length() == 0) {
+        if (h.getThuKhac()==0) {
+            txtThuKhac.setText("0");
+        }
+        if (txtThuKhac.getText().equals("0")) {
             txtKhacPhaiTra.setText(b + "");
         } else if (txtThuKhac.getText().length() == 0 && utils.XHeper.checkTien(txtThuKhac)) {
             txtKhacPhaiTra.setText(b + Float.parseFloat(txtThuKhac.getText()) + "VND");
@@ -863,7 +866,7 @@ public class BanHangFromms extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
-        insertHoaDon(k);
+        insertHoaDon();
         listHD = hdD.selectHDChuaTT();
         PBody2.removeAll();
         updateUI();
@@ -915,10 +918,10 @@ public class BanHangFromms extends javax.swing.JPanel {
                 if (f >= 0) {
                     HoaDon hd = getUpdateFrom(f);
                     hdD.updateTHD(hd);
-                    listHD = hdD.selectHDChuaTT();
-                    t = listHD.size();
                     PBody2.removeAll();
                     updateUI();
+                    listHD = hdD.selectHDChuaTT();
+                    t = listHD.size();
                     addArrayButtonHD();
                 } else {
                     utils.MsgBox.comfirm(this, "Mời bạn chọn hóa đơn cần thanh toán!");
@@ -932,7 +935,7 @@ public class BanHangFromms extends javax.swing.JPanel {
             utils.MsgBox.alert(this, "Mời Bạn chọn Hóa đơn");
         } else {
 
-            hdD.updateTTHD((k + update), 1, listHD.get(f).getMaHd());
+            hdD.updateTTHD((update), 1, listHD.get(f).getMaHd());
         }
     }//GEN-LAST:event_rdbChuaTTActionPerformed
 
@@ -951,19 +954,15 @@ public class BanHangFromms extends javax.swing.JPanel {
     }//GEN-LAST:event_txtKHFocusLost
 
     private void rdbGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbGHActionPerformed
-        if (f == -1) {
-            utils.MsgBox.alert(this, "Mời Bạn chọn Hóa đơn");
-        } else {
-            hdD.updateTTHD((k + update), 2, listHD.get(f).getMaHd());
-        }
+
     }//GEN-LAST:event_rdbGHActionPerformed
 
     private void rdbHHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHHActionPerformed
-        if (f == -1) {
-            utils.MsgBox.alert(this, "Mời Bạn chọn Hóa đơn");
-        } else {
-            hdD.updateTTHD((k + update), 3, listHD.get(f).getMaHd());
-        }
+//        if (f == -1) {
+//            utils.MsgBox.alert(this, "Mời Bạn chọn Hóa đơn");
+//        } else {
+//            hdD.updateTTHD((update), 3, listHD.get(f).getMaHd());
+//        }
     }//GEN-LAST:event_rdbHHActionPerformed
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -973,9 +972,6 @@ public class BanHangFromms extends javax.swing.JPanel {
     private void btnGiaoHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiaoHangActionPerformed
         if (txtThanhToan.getText().length() == 0 || utils.XHeper.checkTien(txtThanhToan) == false) {
             utils.MsgBox.alert(this, "khách chưa thanh toán hoặc nhập sai định dạng mời nhập lại!");
-            //        } else if (Float.parseFloat(txtThanhToan.getText()) < Float.parseFloat(txtKhacPhaiTra.getText()) || utils.XHeper.checkTien(txtThanhToan) == false) {
-            //            utils.MsgBox.alert(this, "khách chưa thanh toán đủ hoặc nhập sai định dạng mời nhập lại!");
-            //        } 
         }else {
             boolean tt = utils.MsgBox.comfirm(this, "Bạn chắc chắn muốn giao đơn hàng này!");
             if (tt) {
@@ -984,7 +980,7 @@ public class BanHangFromms extends javax.swing.JPanel {
                     t = listHD.size();
                     HoaDon hd = getUpdateFrom(f);
                     hdD.updateTHD(hd);
-                    hdD.updateTTHD(k, 2, f);
+                    hdD.updateTTHD(update+txtGhiChus.getText(), 2, f);
                     PBody2.removeAll();
                     updateUI();
                     addArrayButtonHD();

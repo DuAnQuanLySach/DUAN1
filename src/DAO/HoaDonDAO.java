@@ -15,9 +15,9 @@ import java.util.List;
  * @author User
  */
 public class HoaDonDAO extends DAO<HoaDon, String>{
-    String INSERT_SQL = "INSERT INTO HOADON ( MAKH, MANV, TONGSOLUONG, TONGTIEN, NGAYMUA,GHICHU, TRANGTHAI) VALUES(?, ?, ?, ?, ?, ?,?)";
-    String UPDATE_SQL = "UPDATE HOADON SET MAKH=?, MANV=?, TONGSOLUONG=?, TONGTIEN=?, NGAYMUA=?, TRANGTHAI=? WHERE MAHD=? ";
-    String UPDATETH_SQL = "UPDATE HOADON SET  TONGSOLUONG=?, TONGTIEN=?, NGAYMUA=?,GHICHU=?,TRANGTHAI=? WHERE MAHD=? ";
+    String INSERT_SQL = "INSERT INTO HOADON ( MAKH, MANV, TONGSOLUONG, TONGTIEN, NGAYMUA,GHICHU, TRANGTHAI,THUKHAC) VALUES(?, ?, ?, ?, ?, ?,?,?)";
+    String UPDATE_SQL = "UPDATE HOADON SET MAKH=?, MANV=?, TONGSOLUONG=?, TONGTIEN=?, NGAYMUA=?, TRANGTHAI=?,THUKHAC=? WHERE MAHD=? ";
+    String UPDATETH_SQL = "UPDATE HOADON SET  TONGSOLUONG=?, TONGTIEN=?, NGAYMUA=?,GHICHU=?,TRANGTHAI=?,THUKHAC=? WHERE MAHD=? ";
     String DELETE_SQL = "DELETE FROM HOADON WHERE MAHD=? ";
     String SELECT_ALL_SQL = "SELECT * FROM HOADON";
     String SELECT_ALL2_SQL = "SELECT * FROM HOADON WHERE TRANGTHAI >0";
@@ -28,17 +28,17 @@ public class HoaDonDAO extends DAO<HoaDon, String>{
 
     @Override
     public void insert(HoaDon entity) {
-        JDBCHelper.jdbcHelper.update(INSERT_SQL, entity.getMaKH(), entity.getMaNV(), entity.getTongSL(), entity.getTongTien(), entity.getNgaymua(),entity.getGhiChu(), entity.getTrangThai());
+        JDBCHelper.jdbcHelper.update(INSERT_SQL, entity.getMaKH(), entity.getMaNV(), entity.getTongSL(), entity.getTongTien(), entity.getNgaymua(),entity.getGhiChu(), entity.getTrangThai(),entity.getThuKhac());
 
     }
 
     @Override
     public void update(HoaDon entity) {
-        JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getMaKH(), entity.getMaNV(), entity.getTongSL(), entity.getTongTien(), entity.getNgaymua(), entity.getTrangThai(), entity.getMaHd());
+        JDBCHelper.jdbcHelper.update(UPDATE_SQL, entity.getMaKH(), entity.getMaNV(), entity.getTongSL(), entity.getTongTien(), entity.getNgaymua(), entity.getTrangThai(),entity.getThuKhac(), entity.getMaHd());
     }
 
     public void updateTHD(HoaDon entity) {
-        JDBCHelper.jdbcHelper.update(UPDATETH_SQL, entity.getTongSL(), entity.getTongTien(), entity.getNgaymua(),entity.getGhiChu(), entity.getTrangThai(), entity.getMaHd());
+        JDBCHelper.jdbcHelper.update(UPDATETH_SQL, entity.getTongSL(), entity.getTongTien(), entity.getNgaymua(),entity.getGhiChu(), entity.getTrangThai(),entity.getThuKhac(), entity.getMaHd());
     }
 
     public void updateTT(HoaDon entity) {
@@ -90,6 +90,7 @@ public class HoaDonDAO extends DAO<HoaDon, String>{
                 entity.setNgaymua(rs.getDate(6));
                 entity.setGhiChu(rs.getString(7));
                 entity.setTrangThai(rs.getInt(8));
+                entity.setThuKhac(rs.getFloat(9));
 
                 list.add(entity);
             }
